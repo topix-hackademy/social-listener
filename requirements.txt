@@ -1,5 +1,6 @@
 cffi==1.9.1
 click==6.6
+configparser==3.5.0
 cryptography==1.6
 enum34==1.1.6
 Fabric==1.13.1

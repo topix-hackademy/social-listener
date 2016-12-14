@@ -1,14 +1,15 @@
 import multiprocessing as mp
 
+
 class ProcessManager(object):
 
     def __init__(self, data_file):
         self.data_file = data_file
         self.jobs = []
 
-    def create_process(self, target):
+    def create_process(self, target, name):
         try:
-            self.jobs.append(mp.Process(target=target))
+            self.jobs.append(mp.Process(target=target, name=name))
             self.update_process_list()
         except Exception as e:
             return False
