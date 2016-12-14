@@ -9,3 +9,8 @@ app.config.from_object(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/hello')
+def hello():
+    print "puppa"
+    return render_template('index.html')
