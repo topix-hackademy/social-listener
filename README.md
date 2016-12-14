@@ -14,3 +14,10 @@ Install requirements:
     pip install -r requirements.txt
 
 
+## How to Run
+
+Create your own config file:
+
+    cp config.ini.sample config.ini
+    
+Remember to edit the file with your settings.

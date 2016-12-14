@@ -1,0 +1,11 @@
+[pm_data]
+data_file = data/data.json
+
+[log]
+path = /PATH/TO/LOG
+name = socialmanager.log
+level = INFO
+
+[mongo]
+uri = mongodb://localhost:27017/
+db = socialmanager

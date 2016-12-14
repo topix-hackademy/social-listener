@@ -1,16 +1,17 @@
 from flask import redirect, Flask, jsonify, abort, request, make_response, url_for, render_template, flash
-from pymongo import MongoClient
+from process_manager import ProcessManager
+
 
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-#client = MongoClient('mongodb://localhost:27017/')
+pm = ProcessManager()
+
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/hello')
-def hello():
-    print "puppa"
-    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run()

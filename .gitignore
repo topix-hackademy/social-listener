@@ -1,6 +1,9 @@
 # Virtualenv
 envSocial
 
+# Config
+config.ini
+
 # Idea
 .idea
 
