@@ -21,3 +21,11 @@ Create your own config file:
     cp config.ini.sample config.ini
     
 Remember to edit the file with your settings.
+
+In Development Mode:
+
+    export FLASK_DEBUG=1
+    export FLASK=server.py
+    flask run
+    
+In Production Mode use WSGI with Apache/NGINX (documentation will be provided soon..).

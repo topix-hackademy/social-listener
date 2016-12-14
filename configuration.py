@@ -49,7 +49,8 @@ db = {db}
            db=self.mongo['db']))
 
     def configuration_error_message(self):
-        return """Your configuration file is absent or incorrect.
+        return """
+Your configuration file is absent or incorrect.
 Please create a config.ini file with the following structure:
 
 [pm_data]
