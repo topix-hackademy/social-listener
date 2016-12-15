@@ -1,15 +1,12 @@
-from flask import Flask, render_template
-from process_manager.processmanager import ProcessManager
-from twitter.listener import TwitterInterface
-from configuration import Config
 import logging
+
+from application.processmanager import ProcessManager
+from configuration import Config
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 configuration = Config('config.ini')
-
-if configuration.log['level'] == 'INFO':
-    print 'logging to %s%s' % (configuration.log['path'], configuration.log['name'])
 
 logging.basicConfig(filename=configuration.log['path'] + configuration.log['name'],
                     level=configuration.log['level'],
@@ -18,11 +15,10 @@ logging.basicConfig(filename=configuration.log['path'] + configuration.log['name
 logging.info("Configuration loaded")
 configuration.print_configuration()
 
+pm = ProcessManager(configuration.pm_data['data_file'])
 
 '''
 USAGE EXAMPLE
-
-pm = ProcessManager(configuration.pm_data['data_file'])
 
 CONSUMER_KEY = "consumerKEY"
 SECRET_KEY = "secretKEY"

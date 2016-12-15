@@ -1,7 +1,6 @@
 import multiprocessing as mp
 import json
 
-
 class ProcessManager(object):
 
     def __init__(self, data_file):
