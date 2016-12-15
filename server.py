@@ -1,9 +1,10 @@
 import logging
-from configuration import Config
-from flask import Flask, render_template, redirect, request,flash
+
+from application.configuration import Config
+from application.listener import TwitterInterface
 from application.mongo import Connection
 from application.processmanager import ProcessManager
-from application.listener import TwitterInterface
+from flask import Flask, render_template, redirect, request,flash
 
 app = Flask(__name__)
 app.secret_key = 'social_manager'
