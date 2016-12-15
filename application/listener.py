@@ -8,7 +8,6 @@ class TwitterStreamingListener(tweepy.StreamListener):
         super(TwitterStreamingListener, self).__init__()
 
     def on_status(self, tweet):
-        logging.info("Inserting: " + tweet.text)
         Connection.Instance().insert('twitter',
                                      {
                                          "data": tweet._json,
@@ -33,8 +32,8 @@ class TwitterInterface(object):
         try:
             tweepy.API(self.auth).rate_limit_status()
         except Exception as e:
-            print e
             logging.error("Error trying to connect the object: " + str(self))
+            logging.error(e)
             return False
         return True
 

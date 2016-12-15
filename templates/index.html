@@ -41,5 +41,41 @@
                 </div>
             </form>
         </div>
+        <div class="col-md-12">
+            <h2>Process lists <small>Last Update: {{ data['last_update'] }}</small>
+                <span class="pull-right"><a href="/refresh" class="btn btn-info">Refresh List</a> </span>
+            </h2>
+            <table class="table table-striped">
+                <thead>
+                    <hr>
+                        <th>Last Update</th>
+                        <th>Created At</th>
+                        <th>Name</th>
+                        <th>PID</th>
+                        <th>Is Alive</th>
+                        <th>STOP</th>
+                    </hr>
+                </thead>
+                <tbody>
+                {% for entry in data['data'] %}
+                    <tr>
+                        <td>{{ entry['last_update'] }}</td>
+                        <td>{{ entry['created'] }}</td>
+                        <td>{{ entry['name'] }}</td>
+                        <td>{{ entry['pid'] }}</td>
+                        {% if entry['is_alive'] %}
+                            <td> <span class="glyphicon glyphicon-ok green" aria-hidden="true"></span> </td>
+                            <td> <a href="/stop/{{ entry['pid'] }}" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-off"></span> STOP</a> </td>
+                        {% else %}
+                            <td> <span class="glyphicon glyphicon-remove red" aria-hidden="true"></span> </td>
+                            <td> <span class="glyphicon glyphicon-ban-circle red"></span> </td>
+                        {% endif %}
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}

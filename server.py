@@ -20,7 +20,15 @@ logging.info("Configuration loaded, Staring program.")
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    data = pm.read_json_return_dict()
+    return render_template('index.html', data=data)
+
+
+@app.route('/refresh')
+def refresh():
+    pm.refersh_status()
+    flash('List Refreshed!' , category='success')
+    return redirect('/')
 
 
 @app.route('/twitter_listener', methods=['POST'])
