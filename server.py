@@ -1,8 +1,9 @@
 import logging
-
-from application.processmanager import ProcessManager
 from configuration import Config
 from flask import Flask, render_template
+from application.mongo import Connection
+from application.processmanager import ProcessManager
+from application.listener import TwitterInterface
 
 app = Flask(__name__)
 
@@ -17,29 +18,29 @@ configuration.print_configuration()
 
 pm = ProcessManager(configuration.pm_data['data_file'])
 
-'''
-USAGE EXAMPLE
-
-CONSUMER_KEY = "consumerKEY"
-SECRET_KEY = "secretKEY"
-ACCESS_TOKEN = "access_token"
-SECRET_ACCESS_TOKEN = "secret_access_token"
-
-hashtags = ['#python']
-
-comu_tw = TwitterInterface(CONSUMER_KEY,
-                           SECRET_KEY,
-                           ACCESS_TOKEN,
-                           SECRET_ACCESS_TOKEN,
-                           hashtags
-comu_tw.start(pm)
-
-
-'''
+Connection.Instance().setup(configuration.mongo['uri'], configuration.mongo['db'])
 
 
 @app.route('/')
 def index():
+    return render_template('index.html')
+
+
+@app.route('/twitter')
+def tw_comu():
+    CONSUMER_KEY = "asd"
+    SECRET_KEY = "asd"
+    ACCESS_TOKEN = "asd"
+    SECRET_ACCESS_TOKEN = "asd"
+
+    hashtags = ['#python']
+
+    comu_tw = TwitterInterface(CONSUMER_KEY,
+                               SECRET_KEY,
+                               ACCESS_TOKEN,
+                               SECRET_ACCESS_TOKEN,
+                               hashtags)
+    comu_tw.start(pm)
     return render_template('index.html')
 
 if __name__ == '__main__':

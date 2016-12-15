@@ -1,5 +1,5 @@
 import multiprocessing as mp
-import json
+import logging
 
 class ProcessManager(object):
 
@@ -18,7 +18,7 @@ class ProcessManager(object):
             self.jobs.append(p)
             self.update_process_list(p)
         except Exception as e:
-            print e
+            logging.error(e)
             return False
         return True
 

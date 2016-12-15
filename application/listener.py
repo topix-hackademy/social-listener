@@ -1,23 +1,29 @@
 import tweepy
 import logging
+from application.mongo import Connection
+
 
 class TwitterStreamingListener(tweepy.StreamListener):
     def __init__(self):
         super(TwitterStreamingListener, self).__init__()
 
-    def on_status(self, status):
-        # automatic called when a new tweet is received
-        logging.info(status.text)
+    def on_status(self, tweet):
+        logging.info("Inserting: " + tweet.text)
+        Connection.Instance().insert('twitter',
+                                     {
+                                         "data": tweet._json,
+                                         "hashtags": tweet.entities['hashtags']
+                                     })
 
     def on_error(self, status_code):
-        # automatic called when an error occures
         logging.error("Twitter Error: ", status_code)
+
 
 class TwitterInterface(object):
 
-    def __init__(self, CONSUMER_KEY, SECRET_KEY, ACCESS_TOKEN, SECRET_ACCESS_TOKEN, hashtags):
-        self.auth = tweepy.OAuthHandler(CONSUMER_KEY, SECRET_KEY)
-        self.auth.set_access_token(ACCESS_TOKEN, SECRET_ACCESS_TOKEN)
+    def __init__(self, consumer_key, secret_key, access_token, secret_access_token, hashtags):
+        self.auth = tweepy.OAuthHandler(consumer_key, secret_key)
+        self.auth.set_access_token(access_token, secret_access_token)
         self.listener = TwitterStreamingListener()
         self.hashtags = hashtags
         self.process_name = "Twitter: " + "-".join(hashtags)
