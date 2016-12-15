@@ -1,49 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Social Manager</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
-</head>
-<body>
-<div class="container">
-    <nav class="navbar navbar-default">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Welcome</a>
+{% extends "layout.html" %}
+{% block body %}
+    <div class="row" id="twitter_listener">
+        <h3>Twitter listener</h3>
+        <div class="jumbotron">
+            <form class="form-horizontal" action="/twitter_listener" method="POST">
+                <div class="form-group">
+                    <label for="ConsumerKey" class="col-sm-2 control-label">Consumer Key</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="consumer_key" class="form-control" id="ConsumerKey" placeholder="ConsumerKey" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="SecretKey" class="col-sm-2 control-label">Secret Key</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="secret_key" class="form-control" id="SecretKey" placeholder="SecretKey" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="AccessToken" class="col-sm-2 control-label">Access Token</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="access_token" class="form-control" id="AccessToken" placeholder="AccessToken" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="SecretAccessToken" class="col-sm-2 control-label">Secret Access Token</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="secret_access_token" class="form-control" id="SecretAccessToken" placeholder="SecretAccessToken" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Hashtags" class="col-sm-2 control-label">Hashtags</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="hashtags" class="form-control" id="Hashtags" placeholder="hashtag1, hashtag2, hashtag3, ..." required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-warning">Start Process</button>
+                    </div>
+                </div>
+            </form>
         </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Hello</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle"
-                       data-toggle="dropdown" role="button"
-                       aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Something HERE</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Hello</a></li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </nav>
-    <!-- Content -->
-    <div class="row">
-        <h1>Welcome</h1>
     </div>
-</div>
-</body>
-</html>
+{% endblock %}

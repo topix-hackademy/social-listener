@@ -29,6 +29,19 @@ class TwitterInterface(object):
         self.process_name = "Twitter: " + "-".join(hashtags)
         self.stream = tweepy.streaming.Stream(self.auth, self.listener)
 
+    def test_auth(self):
+        try:
+            tweepy.API(self.auth).rate_limit_status()
+        except Exception as e:
+            print e
+            logging.error("Error trying to connect the object: " + str(self))
+            return False
+        return True
+
     def start(self, process_manager):
         process_manager.create_process(target=lambda: self.stream.filter(track=self.hashtags),
                                        name=self.process_name)
+
+    def __str__(self):
+        return "Twitter Interface <{hashtags}>".format(auth=self.auth,
+                                                               hashtags=self.hashtags)
