@@ -59,3 +59,11 @@ class ProcessManager(object):
                 entry['last_update'] = what_time_is_now
         data['last_update'] = what_time_is_now
         self.dump_new_process_list(data)
+
+    def stop_process(self, pid):
+        pid = int(pid)
+        data = self.read_json_return_dict()
+        if not any(entry['pid'] == pid for entry in data['data']):
+            return False
+        psutil.Process(pid).terminate()
+        return True

@@ -31,6 +31,14 @@ def refresh():
     flash('List Refreshed!' , category='success')
     return redirect('/')
 
+@app.route('/stop/<pid>')
+def stop(pid):
+    if pm.stop_process(pid):
+        flash('Process Stopped!', category='success')
+    else:
+        flash('Process Does not Exist in List!', category='danger')
+    return redirect('/')
+
 
 @app.route('/twitter_listener', methods=['POST'])
 def tw_comu():
