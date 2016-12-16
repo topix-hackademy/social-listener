@@ -2,6 +2,7 @@ import logging
 from datetime import datetime as dt
 from pymongo import MongoClient, ASCENDING, DESCENDING
 from utils.helpers import Singleton
+from application import globals
 
 
 @Singleton
@@ -10,18 +11,19 @@ class Connection:
     db = None
 
     def __init__(self):
-        pass
-
-    def setup(self, mongo_uri, mongo_db):
         try:
-            self._client = MongoClient(mongo_uri)
-            self.db = self._client[mongo_db]
+            self._client = MongoClient(globals.configuration.mongo['uri'])
+            self.db = self._client[globals.configuration.mongo['db']]
             self.generate_structure()
         except Exception, error:
             logging.error("DB error: %s" % error.message)
             raise error
 
     def generate_structure(self):
+        """
+        Create indexes
+        :return:
+        """
         try:
             self.db.twitter.ensure_index([('created', DESCENDING)], name='_date_index1', backround=True)
 
@@ -33,6 +35,12 @@ class Connection:
             raise error
 
     def insert(self, collection, data):
+        """
+        Insert new data in a specific collection
+        :param collection: Collection Name
+        :param data: Data to insert
+        :return:
+        """
         if collection == 'twitter':
             data['created'] = dt.now()
             data['source'] = 'listener'

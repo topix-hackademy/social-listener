@@ -1,14 +1,20 @@
 import logging, os, sys
 from configparser import ConfigParser
 
+
 class Config(object):
 
     _instance = None
     pm_data = {}
     log = {}
     mongo = {}
+    utils = {}
 
     def __init__(self, path):
+        """
+        Config Class Constructor. Used to create the Singleton and to setup the configuration object
+        :param path:
+        """
         # singleton init
         if not self._instance:
             self._instance = super(Config, self).__init__()
@@ -25,10 +31,16 @@ class Config(object):
 
             self.mongo['uri'] = parser.get('mongo', 'uri')
             self.mongo['db'] = parser.get('mongo', 'db')
+
+            self.utils['date_format'] = parser.get('utils', 'date_format')
         except Exception, message:
-            sys.exit(message.message + "\n" + self.configuration_error_message())
+            sys.exit(message.message + "\n" + Config.configuration_error_message())
 
     def print_configuration(self):
+        """
+        Method used to print the actual configuration
+        :return:
+        """
         logging.info("""
 [pm_data]
 data_file = {data_file}
@@ -41,14 +53,23 @@ level = {level}
 [mongo]
 uri = {uri}
 db = {db}
+
+[utils]
+date_format = {date_format}
 """.format(data_file=self.pm_data['data_file'],
            path=self.log['path'],
            name=self.log['name'],
            level=self.log['level'],
            uri=self.mongo['uri'],
-           db=self.mongo['db']))
+           db=self.mongo['db'],
+           date_format=self.utils['date_format']))
 
-    def configuration_error_message(self):
+    @classmethod
+    def configuration_error_message(cls):
+        """
+        Configuration Error Message
+        :return:
+        """
         return """
 Your configuration file is absent or incorrect.
 Please create a config.ini file with the following structure:
@@ -64,4 +85,7 @@ level = level
 [mongo]
 uri = uri
 db = db
+
+[utils]
+date_format = %%Y/%%m/%%d-%%H:%%M:%%S
 """

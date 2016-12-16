@@ -9,3 +9,6 @@ level = INFO
 [mongo]
 uri = mongodb://localhost:27017/
 db = socialmanager
+
+[utils]
+date_format = %%Y/%%m/%%d-%%H:%%M:%%S
