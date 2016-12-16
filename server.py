@@ -3,7 +3,7 @@ from application import globals
 
 from application.configuration import Config
 from application.processmanager import ProcessManager
-from application.twitter.listener import TwitterListener
+from application.twitter.listener.listener import TwitterListener
 from flask import Flask, render_template, redirect, request, flash
 
 app = Flask(__name__)

@@ -1,7 +1,8 @@
-import tweepy
 import logging
+
+import tweepy
 from application.mongo import Connection
-from application.twitter.interface import TwitterInterface
+from application.twitter.listener.interface import TwitterInterface
 
 
 class TwitterListener(TwitterInterface):
