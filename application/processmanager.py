@@ -1,9 +1,11 @@
-import multiprocessing as mp
-import logging
 import json
+import logging
+import multiprocessing as mp
+
 import os
 import psutil
-from utils import helpers
+from application.utils.helpers import what_time_is_it
+
 
 class ProcessManager(object):
 
@@ -30,7 +32,7 @@ class ProcessManager(object):
         :return:
         """
         self.dump_new_process_list({"data": [],
-                                    "last_update": helpers.what_time_is_it()})
+                                    "last_update": what_time_is_it()})
 
     def read_json_return_dict(self):
         """
@@ -64,7 +66,7 @@ class ProcessManager(object):
         :param new_process: Process object
         :return:
         """
-        what_time_is_now = helpers.what_time_is_it()
+        what_time_is_now = what_time_is_it()
         data = self.read_json_return_dict()
         data['data'].append({"name": new_process.name,
                              "pid": new_process.pid,
@@ -90,7 +92,7 @@ class ProcessManager(object):
         :return:
         """
         data = self.read_json_return_dict()
-        what_time_is_now = helpers.what_time_is_it()
+        what_time_is_now = what_time_is_it()
         for entry in data['data']:
             if (not psutil.pid_exists(entry['pid']) and entry['is_alive']) or \
                     (psutil.pid_exists(entry['pid']) and
