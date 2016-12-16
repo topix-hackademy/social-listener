@@ -4,14 +4,14 @@
     <ol class="breadcrumb">
         <li><a href="/">HOME</a></li>
         <li><a href="/twitter">TWITTER HOME</a></li>
-        <li><a href="/twitter/listener">LISTENER</a></li>
+        <li><a href="/twitter/collector">COLLECTOR</a></li>
     </ol>
 
     <!-- Page Content -->
-    <div class="row" id="twitter_listener_create">
-        <h3>Twitter listener</h3>
+    <div class="row" id="twitter_collector_create">
+        <h3>Tweet Collector</h3>
         <div class="jumbotron">
-            <form class="form-horizontal" action="/twitter/listener/create" method="POST">
+            <form class="form-horizontal" action="/twitter/collector/create" method="POST">
                 <div class="form-group">
                     <label for="ConsumerKey" class="col-sm-2 control-label">Consumer Key</label>
                     <div class="col-sm-10">
@@ -37,9 +37,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="Hashtags" class="col-sm-2 control-label">Hashtags</label>
+                    <label for="Hashtags" class="col-sm-2 control-label">User Name</label>
                     <div class="col-sm-10">
-                        <input type="text" name="hashtags" class="form-control" id="Hashtags" placeholder="hashtag1, hashtag2, hashtag3, ..." required>
+                        <input type="text" name="user" class="form-control" id="user" placeholder="user name.." required>
                     </div>
                 </div>
                 <div class="form-group">

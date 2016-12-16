@@ -13,7 +13,7 @@ class TwitterListener(TwitterInterface):
         super(TwitterListener, self).__init__(*args, **kwargs)
         self.hashtags = hashtags
         self.listener = TwitterStreamingListener()
-        self.process_name = "Twitter: " + "-".join(hashtags)
+        self.process_name = "Twitter Listener: <%s>" % "-".join(hashtags)
         self.stream = tweepy.streaming.Stream(self.auth, self.listener)
 
     def start(self, process_manager):
@@ -22,14 +22,16 @@ class TwitterListener(TwitterInterface):
         :param process_manager: Process Manager Instance
         :return:
         """
-        process_manager.create_process(target=lambda: self.stream.filter(track=self.hashtags),
-                                       name=self.process_name)
+        try:
+            process_manager.create_process(target=lambda: self.stream.filter(track=self.hashtags),
+                                           name=self.process_name,
+                                           ptype='twitter_listener')
+        except Exception as e:
+            raise e
 
     def __str__(self):
         """
         String representation
         :return:
         """
-        return "Twitter Interface <{hashtags}>".format(auth=self.auth,
-                                                       hashtags=self.hashtags)
-
+        return "Twitter Listener <{hashtags}>".format(hashtags=self.hashtags)

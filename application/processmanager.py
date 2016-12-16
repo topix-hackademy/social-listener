@@ -1,7 +1,6 @@
 import json
 import logging
 import multiprocessing as mp
-
 import os
 import psutil
 from application.utils.helpers import what_time_is_it
@@ -42,7 +41,7 @@ class ProcessManager(object):
         with open(self.data_file, 'r') as fp:
             return json.load(fp)
 
-    def create_process(self, target, name):
+    def create_process(self, target, name, ptype):
         """
         Create new process
         :param target: target function
@@ -53,22 +52,24 @@ class ProcessManager(object):
             p = mp.Process(target=target, name=name)
             p.daemon = True
             p.start()
-            self.update_process_list(p)
+            self.update_process_list(p, ptype)
         except Exception as e:
             logging.error(e)
-            return False
-        return True
+            raise Exception(e)
+        return p.pid
 
-    def update_process_list(self, new_process):
+    def update_process_list(self, new_process, ptype):
         """
         Add new process to process List.
         Then create new process json status file.
         :param new_process: Process object
+        :param ptype: Process type
         :return:
         """
         what_time_is_now = what_time_is_it()
         data = self.read_json_return_dict()
         data['data'].append({"name": new_process.name,
+                             "ptype": ptype,
                              "pid": new_process.pid,
                              "is_alive": new_process.is_alive(),
                              "created": what_time_is_now,
