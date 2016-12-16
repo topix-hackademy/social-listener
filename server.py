@@ -2,8 +2,8 @@ import logging
 from application import globals
 
 from application.configuration import Config
-from application.twitter.interface import TwitterInterface
 from application.processmanager import ProcessManager
+from application.twitter.listener import TwitterListener
 from flask import Flask, render_template, redirect, request, flash
 
 app = Flask(__name__)
@@ -51,13 +51,12 @@ def twitter_listener_create():
     Method used to create a new subprocess of a Twitter Listener object
     :return:
     """
-    listener = TwitterInterface(request.form['consumer_key'],
-                                request.form['secret_key'],
-                                request.form['access_token'],
-                                request.form['secret_access_token'],
-                                request.form['hashtags'].replace(" ", "").split(','))
     try:
-        listener.test_auth()
+        listener = TwitterListener(request.form['hashtags'].replace(" ", "").split(','),
+                                   request.form['consumer_key'],
+                                   request.form['secret_key'],
+                                   request.form['access_token'],
+                                   request.form['secret_access_token'])
         listener.start(pm)
     except:
         flash('Twitter Authentication FAILED! Please try again with new keys.',
