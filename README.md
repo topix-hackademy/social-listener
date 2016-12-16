@@ -13,6 +13,10 @@ Install requirements:
 
     pip install -r requirements.txt
 
+You need also:
+
+    MongoDB up and running
+    Twitter Developer Account 
 
 ## How to Run
 
