@@ -27,24 +27,24 @@ class Connection:
         """
         try:
             self.db.twitter.ensure_index([('created', DESCENDING)], name='_date_index1', backround=True)
-
             self.db.twitter.ensure_index([('source', ASCENDING)], name='_source_index1', backround=True)
-
             self.db.twitter.ensure_index([('hashtags', ASCENDING)], name='_hashtags_index1', backround=True)
+            self.db.twitter.ensure_index([('user', ASCENDING)], name='_user_index1', backround=True)
         except Exception, error:
             logging.error("Error during index creation: %s" % error.message)
             raise error
 
-    def insert(self, collection, data):
+    def insert(self, collection, source, data):
         """
         Insert new data in a specific collection
         :param collection: Collection Name
+        :param source: Source type
         :param data: Data to insert
         :return:
         """
         if collection == 'twitter':
             data['created'] = dt.now()
-            data['source'] = 'listener'
+            data['source'] = source
             self.db.twitter.insert_one(data)
         else:
             raise TypeError

@@ -15,7 +15,7 @@ class TwitterStreamingListener(tweepy.StreamListener):
         :param tweet:
         :return:
         """
-        Connection.Instance().insert('twitter',
+        Connection.Instance().insert('twitter', 'listener',
                                      {
                                          "data": tweet._json,
                                          "hashtags": tweet.entities['hashtags']

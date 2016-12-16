@@ -1,8 +1,7 @@
-import logging
 from application.mongo import Connection
 from application.twitter.interface import TwitterInterface
 from application.twitter.tweets.fetcher import TweetsFetcher
-
+import logging
 
 class TweetCollector(TwitterInterface):
 
@@ -42,6 +41,25 @@ class TweetCollector(TwitterInterface):
         """
         for page in self.fetcherInstance.get_tweets():
             for tweet in page:
-                logging.info(tweet)
-                # TODO: Insert To MONGODB
+                try:
+                    Connection.Instance().insert('twitter', 'collector',
+                                                 {
+                                                     'data': {
+                                                         'created_at': tweet.created_at,
+                                                         'favorite_count': tweet.favorite_count,
+                                                         'geo': tweet.geo,
+                                                         'id': tweet.id,
+                                                         'source': tweet.source,
+                                                         'in_reply_to_screen_name': tweet.in_reply_to_screen_name,
+                                                         'in_reply_to_status_id': tweet.in_reply_to_status_id,
+                                                         'in_reply_to_user_id': tweet.in_reply_to_user_id,
+                                                         'retweet_count': tweet.retweet_count,
+                                                         'retweeted': tweet.retweeted,
+                                                         'text': tweet.text,
+                                                         'entities': tweet.entities
+                                                     },
+                                                     'user': tweet.user.screen_name
+                                                 })
+                except Exception as e:
+                    logging.error("MongoDB Insert Error: " + e)
         # TODO: Process is finished, I want to set some flag to say "Hey, we are done! :)"
