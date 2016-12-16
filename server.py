@@ -2,9 +2,9 @@ import logging
 from application import globals
 
 from application.configuration import Config
-from application.listener import TwitterInterface
+from application.twitter.interface import TwitterInterface
 from application.processmanager import ProcessManager
-from flask import Flask, render_template, redirect, request,flash
+from flask import Flask, render_template, redirect, request, flash
 
 app = Flask(__name__)
 app.secret_key = 'social_manager'
@@ -56,12 +56,14 @@ def twitter_listener_create():
                                 request.form['access_token'],
                                 request.form['secret_access_token'],
                                 request.form['hashtags'].replace(" ", "").split(','))
-    if not listener.test_auth():
+    try:
+        listener.test_auth()
+        listener.start(pm)
+    except:
         flash('Twitter Authentication FAILED! Please try again with new keys.',
               category='danger')
         return redirect('/twitter/listener')
 
-    listener.start(pm)
     flash('Process Started!', category='success')
     return redirect('/twitter/listener')
 
