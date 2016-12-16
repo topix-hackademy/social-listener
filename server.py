@@ -23,37 +23,30 @@ logging.info("Configuration loaded, Staring program.")
 @app.route('/')
 def index():
     """
-    Index of the website with json process list and last update info
+    Index of all Available Services
     :return:
     """
+    return render_template('index.html')
+
+
+@app.route('/twitter')
+def twitter():
+    return render_template('twitter/index.html')
+
+
+##################################################################################
+#                          Twitter Listener Area                                 #
+##################################################################################
+
+
+@app.route('/twitter/listener', methods=['GET'])
+def twitter_listener_index():
     data = pm.read_json_return_dict()
-    return render_template('index.html', data=data['data'][::-1], last_update=data['last_update'])
+    return render_template('twitter/listener/index.html', data=data['data'][::-1], last_update=data['last_update'])
 
 
-@app.route('/refresh')
-def refresh():
-    """
-    Refresh the process List
-    :return:
-    """
-    pm.refersh_status()
-    flash('List Refreshed!', category='success')
-    return redirect('/')
-
-@app.route('/stop/<pid>')
-def stop(pid):
-    """
-    Stop a specific process
-    :param pid:  Process ID
-    :return:
-    """
-    flag, message = pm.stop_process(pid)
-    flash(message, category='success' if flag else 'danger')
-    return redirect('/refresh')
-
-
-@app.route('/twitter_listener', methods=['POST'])
-def twitter_listener():
+@app.route('/twitter/listener/create', methods=['POST'])
+def twitter_listener_create():
     """
     Method used to create a new subprocess of a Twitter Listener object
     :return:
@@ -66,11 +59,34 @@ def twitter_listener():
     if not listener.test_auth():
         flash('Twitter Authentication FAILED! Please try again with new keys.',
               category='danger')
-        return redirect('/')
+        return redirect('/twitter/listener')
 
     listener.start(pm)
     flash('Process Started!', category='success')
-    return redirect('/')
+    return redirect('/twitter/listener')
+
+
+@app.route('/twitter/listener/refresh', methods=['GET'])
+def twitter_listener_refresh():
+    """
+    Refresh the process List
+    :return:
+    """
+    pm.refersh_status()
+    flash('List Refreshed!', category='success')
+    return redirect('/twitter/listener')
+
+
+@app.route('/twitter/listener/stop/<pid>', methods=['GET'])
+def twitter_listener_stop(pid):
+    """
+    Stop a specific process
+    :param pid:  Process ID
+    :return:
+    """
+    flag, message = pm.stop_process(pid)
+    flash(message, category='success' if flag else 'danger')
+    return redirect('/twitter/listener/refresh')
 
 if __name__ == '__main__':
     app.run()

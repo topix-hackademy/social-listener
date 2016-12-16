@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% block body %}
+    <!-- BreadCrumb -->
+    <ol class="breadcrumb">
+        <li><a href="/">HOME</a></li>
+        <li><a href="/twitter">TWITTER HOME</a></li>
+        <li><a href="/twitter/listener">LISTENER</a></li>
+    </ol>
+
+    <!-- Page Content -->
+    <div class="row" id="twitter_listener_create">
+        <h3>Twitter listener</h3>
+        <div class="jumbotron">
+            <form class="form-horizontal" action="/twitter/listener/create" method="POST">
+                <div class="form-group">
+                    <label for="ConsumerKey" class="col-sm-2 control-label">Consumer Key</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="consumer_key" class="form-control" id="ConsumerKey" placeholder="ConsumerKey" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="SecretKey" class="col-sm-2 control-label">Secret Key</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="secret_key" class="form-control" id="SecretKey" placeholder="SecretKey" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="AccessToken" class="col-sm-2 control-label">Access Token</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="access_token" class="form-control" id="AccessToken" placeholder="AccessToken" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="SecretAccessToken" class="col-sm-2 control-label">Secret Access Token</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="secret_access_token" class="form-control" id="SecretAccessToken" placeholder="SecretAccessToken" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Hashtags" class="col-sm-2 control-label">Hashtags</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="hashtags" class="form-control" id="Hashtags" placeholder="hashtag1, hashtag2, hashtag3, ..." required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-warning">Start Process</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-12">
+            <h2>Process lists <small>Last Update: {{ last_update }}</small>
+                <span class="pull-right"><a href="/twitter/listener/refresh" class="btn btn-info">Refresh List</a> </span>
+            </h2>
+            <table class="table table-striped">
+                <thead>
+                    <hr>
+                        <th>Last Update</th>
+                        <th>Created At</th>
+                        <th>Name</th>
+                        <th>PID</th>
+                        <th>Is Alive</th>
+                        <th>STOP</th>
+                    </hr>
+                </thead>
+                <tbody>
+                {% for entry in data %}
+                    <tr>
+                        <td>{{ entry['last_update'] }}</td>
+                        <td>{{ entry['created'] }}</td>
+                        <td>{{ entry['name'] }}</td>
+                        <td>{{ entry['pid'] }}</td>
+                        {% if entry['is_alive'] %}
+                            <td> <span class="glyphicon glyphicon-ok green" aria-hidden="true"></span> </td>
+                            <td> <a href="/twitter/listener/stop/{{ entry['pid'] }}" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-off"></span> STOP</a> </td>
+                        {% else %}
+                            <td> <span class="glyphicon glyphicon-remove red" aria-hidden="true"></span> </td>
+                            <td> <span class="glyphicon glyphicon-ban-circle red"></span> </td>
+                        {% endif %}
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
