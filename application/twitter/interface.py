@@ -27,7 +27,7 @@ class TwitterInterface(object):
         :return: True / False
         """
         try:
-            tweepy.API(self.auth).rate_limit_status()
+            tweepy.API(self.auth).verify_credentials()
         except Exception as e:
             logging.error("Error trying to connect the object: " + str(self))
             logging.error(e)
