@@ -46,6 +46,7 @@ class ProcessManager(object):
         Create new process
         :param target: target function
         :param name: Name of the new process
+        :param ptype: Name of the Process type ['twitter_listener', 'twitter_collector']
         :return: True / False
         """
         try:
