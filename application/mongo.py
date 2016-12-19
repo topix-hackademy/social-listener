@@ -1,7 +1,7 @@
 import logging
 from datetime import datetime as dt
 
-from application import globals
+from application.utils import globals
 from application.utils.helpers import Singleton
 from pymongo import MongoClient, ASCENDING, DESCENDING
 

@@ -1,6 +1,7 @@
-from application import globals
 from datetime import datetime as dt
 from functools import wraps
+
+from application.utils import globals
 from flask import request, Response
 
 
