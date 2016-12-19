@@ -47,7 +47,7 @@ def twitter_refresh():
     Refresh the process List
     :return:
     """
-    pm.refersh_status()
+    pm.refresh_status()
     flash('List Refreshed!', category='success')
     return redirect('/twitter')
 

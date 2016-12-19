@@ -4,6 +4,7 @@ import multiprocessing as mp
 import os
 import psutil
 from application.utils.helpers import what_time_is_it
+from application.utils import globals
 
 
 class ProcessManager(object):
@@ -57,7 +58,6 @@ class ProcessManager(object):
         except Exception as e:
             logging.error(e)
             raise Exception(e)
-        return p.pid
 
     def update_process_list(self, new_process, ptype):
         """
@@ -74,6 +74,7 @@ class ProcessManager(object):
                              "pid": new_process.pid,
                              "is_alive": new_process.is_alive(),
                              "created": what_time_is_now,
+                             "terminated": False,
                              "last_update": what_time_is_now})
         data['last_update'] = what_time_is_now
         self.dump_new_process_list(data)
@@ -87,7 +88,7 @@ class ProcessManager(object):
         with open(self.data_file, 'w') as fp:
             json.dump(data, fp)
 
-    def refersh_status(self):
+    def refresh_status(self):
         """
         Refresh process status reading from json status file.
         If a process is dead or in zombie status a flag 'is_alive' will be setted to False
@@ -122,3 +123,22 @@ class ProcessManager(object):
             logging.error(e)
             return False, 'Process does not exists'
         return True, 'Process Stopped'
+
+    @staticmethod
+    def update_process(pid, new_status):
+        """
+        Update the "terminated" of a singe process
+        :param pid:
+        :param pid:
+        :return:
+        """
+        with open(globals.configuration.pm_data['data_file'], 'r') as fp:
+            data = json.load(fp)
+        for process in data['data']:
+            if str(process['pid']) == str(pid):
+                process['terminated'] = new_status
+                process['last_update'] = what_time_is_it()
+                break
+        data['last_update'] = what_time_is_it()
+        with open(globals.configuration.pm_data['data_file'], 'w') as fp:
+            json.dump(data, fp)

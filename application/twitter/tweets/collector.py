@@ -1,7 +1,9 @@
 from application.mongo import Connection
 from application.twitter.interface import TwitterInterface
 from application.twitter.tweets.fetcher import TweetsFetcher
+from application.processmanager import ProcessManager
 import logging
+
 
 class TweetCollector(TwitterInterface):
 
@@ -39,6 +41,7 @@ class TweetCollector(TwitterInterface):
         Tweets loader
         :return:
         """
+        import multiprocessing
         for page in self.fetcherInstance.get_tweets():
             for tweet in page:
                 try:
@@ -62,4 +65,4 @@ class TweetCollector(TwitterInterface):
                                                  })
                 except Exception as e:
                     logging.error("MongoDB Insert Error: " + e)
-        # TODO: Process is finished, I want to set some flag to say "Hey, we are done! :)"
+        ProcessManager.update_process(multiprocessing.current_process().pid, True)
