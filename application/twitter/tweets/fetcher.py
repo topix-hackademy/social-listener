@@ -4,16 +4,27 @@ import logging
 
 
 class TweetsFetcher(object):
+
     def __init__(self, auth, user, process_name):
+        """
+        Class constructor
+        :param auth: Tweepy Auth object
+        :param user: User to search
+        :param process_name: Name of the process to create
+        """
         self.api = tweepy.API(auth)
         self.process_name = process_name
         try:
-            check_if_exists = self.api.get_user(user)
+            self.api.get_user(user)
         except Exception as e:
             raise e
         self.user_cursor = tweepy.Cursor(self.api.user_timeline, screen_name=user)
 
     def get_tweets(self):
+        """
+        Generator used to retrieve tweets from the user
+        :return:
+        """
         while True:
             try:
                 yield self.user_cursor.pages().next()
