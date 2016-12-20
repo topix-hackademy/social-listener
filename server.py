@@ -17,7 +17,7 @@ logging.basicConfig(filename=configuration.log['path'] + configuration.log['name
                     level=configuration.log['level'],
                     format="%(asctime)s [%(levelname)-5.5s]  %(message)s")
 
-pm = ProcessManager(configuration.pm_data['data_file'])
+pm = ProcessManager()
 logging.info("Configuration loaded, Staring program.")
 
 
@@ -37,8 +37,11 @@ def index():
 
 @app.route('/twitter')
 def twitter():
-    data = pm.read_json_return_dict()
-    return render_template('twitter/index.html', data=data['data'][::-1], last_update=data['last_update'])
+    data = pm.get_all_processes()
+    last_update = 'Start your first process'
+    if data:
+        last_update = data[0]['last_update']
+    return render_template('twitter/index.html', data=data, last_update=last_update)
 
 
 @app.route('/twitter/refresh', methods=['GET'])

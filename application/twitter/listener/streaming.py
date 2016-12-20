@@ -1,6 +1,7 @@
 import tweepy
 import logging
 from application.mongo import Connection
+from application.utils.helpers import what_time_is_it
 
 
 class TwitterStreamingListener(tweepy.StreamListener):
@@ -18,7 +19,8 @@ class TwitterStreamingListener(tweepy.StreamListener):
         Connection.Instance().insert('twitter', 'listener',
                                      {
                                          "data": tweet._json,
-                                         "hashtags": tweet.entities['hashtags']
+                                         "hashtags": tweet.entities['hashtags'],
+                                         "created": what_time_is_it()
                                      })
 
     def on_error(self, status_code):

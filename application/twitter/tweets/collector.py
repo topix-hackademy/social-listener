@@ -2,6 +2,7 @@ from application.mongo import Connection
 from application.twitter.interface import TwitterInterface
 from application.twitter.tweets.fetcher import TweetsFetcher
 from application.processmanager import ProcessManager
+from application.utils.helpers import what_time_is_it
 import logging
 
 
@@ -61,8 +62,9 @@ class TweetCollector(TwitterInterface):
                                                          'text': tweet.text,
                                                          'entities': tweet.entities
                                                      },
-                                                     'user': tweet.user.screen_name
+                                                     'user': tweet.user.screen_name,
+                                                     'created': what_time_is_it()
                                                  })
                 except Exception as e:
                     logging.error("MongoDB Insert Error: " + e)
-        ProcessManager.update_process(multiprocessing.current_process().pid, True)
+        ProcessManager.terminate_process(multiprocessing.current_process().pid, True)

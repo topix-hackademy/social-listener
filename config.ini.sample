@@ -1,6 +1,3 @@
-[pm_data]
-data_file = data/data.json
-
 [log]
 path = /PATH/TO/LOG
 name = socialmanager.log
