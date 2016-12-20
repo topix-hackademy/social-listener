@@ -15,14 +15,14 @@
         </h2>
         <table class="table table-striped">
             <thead>
-            <hr>
-            <th>Last Update</th>
-            <th>Created At</th>
-            <th>Name</th>
-            <th>PID</th>
-            <th>Is Alive</th>
-            <th>STOP</th>
-            </hr>
+                <hr>
+                    <th>Last Update</th>
+                    <th>Created At</th>
+                    <th>Name</th>
+                    <th>PID</th>
+                    <th>Is Alive</th>
+                    <th>STOP</th>
+                </hr>
             </thead>
             <tbody>
             {% for entry in data %}
@@ -33,11 +33,17 @@
                     <td>{{ entry['pid'] }}</td>
                     {% if entry['is_alive'] %}
                         <td> <span class="glyphicon glyphicon-ok green" aria-hidden="true"></span> </td>
-                        <td> <a href="/twitter/stop/{{ entry['pid'] }}" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-off"></span> STOP</a> </td>
+                        <td>
+                            <a href="/twitter/stop/{{ entry['pid'] }}" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span> STOP</a>
+                        </td>
                     {% else %}
                         <td> <span class="glyphicon glyphicon-remove red" aria-hidden="true"></span> </td>
-                        <td> <span class="glyphicon glyphicon-ban-circle red"></span> </td>
+                        {% if entry['terminated'] %}
+                            <td> <span class="glyphicon glyphicon-ok green"></span> </td>
+                        {% else %}
+                            <td> <span class="glyphicon glyphicon-off red"></span> </td>
+                        {% endif %}
                     {% endif %}
                 </tr>
             {% endfor %}
