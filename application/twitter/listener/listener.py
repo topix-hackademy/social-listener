@@ -13,7 +13,7 @@ class TwitterListener(TwitterInterface):
         super(TwitterListener, self).__init__(*args, **kwargs)
         self.hashtags = hashtags
         self.listener = TwitterStreamingListener()
-        self.process_name = "Twitter Listener: <%s>" % "-".join(hashtags)
+        self.process_name = 'Twitter Listener: <%s>' % '-'.join(hashtags)
         self.stream = tweepy.streaming.Stream(self.auth, self.listener)
 
     def start(self, process_manager):
@@ -34,4 +34,4 @@ class TwitterListener(TwitterInterface):
         String representation
         :return:
         """
-        return "Twitter Listener <{hashtags}>".format(hashtags=self.hashtags)
+        return 'Twitter Listener <{hashtags}>'.format(hashtags=self.hashtags)

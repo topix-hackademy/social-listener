@@ -7,6 +7,10 @@ from application.twitter.tweets.collector import TweetCollector
 from application.utils import globals
 from flask import Flask, render_template, redirect, request, flash
 
+import re
+twitter_regex = re.compile(r'twitter_*')
+facebook_regex = re.compile(r'facebook_*')
+
 app = Flask(__name__)
 app.secret_key = 'social_manager'
 
@@ -17,7 +21,7 @@ logging.basicConfig(filename=configuration.log['path'] + configuration.log['name
                     level=configuration.log['level'],
                     format="%(asctime)s [%(levelname)-5.5s]  %(message)s")
 
-pm = ProcessManager(configuration.pm_data['data_file'])
+pm = ProcessManager()
 logging.info("Configuration loaded, Staring program.")
 
 
@@ -37,8 +41,8 @@ def index():
 
 @app.route('/twitter')
 def twitter():
-    data = pm.read_json_return_dict()
-    return render_template('twitter/index.html', data=data['data'][::-1], last_update=data['last_update'])
+    return render_template('twitter/index.html',
+                           data=pm.get_all_processes_with_condition({'ptype': twitter_regex}))
 
 
 @app.route('/twitter/refresh', methods=['GET'])

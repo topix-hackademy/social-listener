@@ -5,7 +5,6 @@ from configparser import ConfigParser
 class Config(object):
 
     _instance = None
-    pm_data = {}
     log = {}
     mongo = {}
     utils = {}
@@ -22,8 +21,6 @@ class Config(object):
         try:
             parser = ConfigParser()
             parser.read(os.path.expanduser(path))
-
-            self.pm_data['data_file'] = parser.get('pm_data', 'data_file')
 
             self.log['path'] = parser.get('log', 'path')
             self.log['name'] = parser.get('log', 'name')
@@ -42,9 +39,6 @@ class Config(object):
         :return:
         """
         logging.info("""
-[pm_data]
-data_file = {data_file}
-
 [log]
 path = {path}
 name = {name}
@@ -56,8 +50,7 @@ db = {db}
 
 [utils]
 date_format = {date_format}
-""".format(data_file=self.pm_data['data_file'],
-           path=self.log['path'],
+""".format(path=self.log['path'],
            name=self.log['name'],
            level=self.log['level'],
            uri=self.mongo['uri'],
@@ -73,9 +66,6 @@ date_format = {date_format}
         return """
 Your configuration file is absent or incorrect.
 Please create a config.ini file with the following structure:
-
-[pm_data]
-data_file = data_file
 
 [log]
 path = path
