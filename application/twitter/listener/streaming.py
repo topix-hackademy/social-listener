@@ -16,12 +16,16 @@ class TwitterStreamingListener(tweepy.StreamListener):
         :param tweet:
         :return:
         """
-        Connection.Instance().insert('twitter', 'listener',
-                                     {
-                                         "data": tweet._json,
-                                         "hashtags": tweet.entities['hashtags'],
-                                         "created": what_time_is_it()
-                                     })
+        try:
+            Connection.Instance().db.twitter.insert_one(
+                {
+                    'source': 'listener',
+                    'data': tweet._json,
+                    'hashtags': tweet.entities['hashtags'],
+                    'created': what_time_is_it()
+                })
+        except Exception as e:
+            logging.error("MongoDB Insert Error in listener: " + e)
 
     def on_error(self, status_code):
         """
@@ -29,4 +33,4 @@ class TwitterStreamingListener(tweepy.StreamListener):
         :param status_code: Status Error Code
         :return:
         """
-        logging.error("Twitter Error: ", status_code)
+        logging.error('Twitter Error: ', status_code)

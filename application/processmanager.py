@@ -55,8 +55,8 @@ class ProcessManager(object):
     def terminate_process(pid, new_status):
         """
         Update the "terminated" of a singe process
-        :param pid:
-        :param new_status:
+        :param pid: Process ID
+        :param new_status: True / False
         :return:
         """
         ProcessManager.update_process(pid, {
@@ -100,7 +100,7 @@ class ProcessManager(object):
 
     def refresh_status(self):
         """
-        Refresh process status reading from json status file.
+        Refresh process status.
         If a process is dead or in zombie status a flag 'is_alive' will be setted to False
         :return:
         """
