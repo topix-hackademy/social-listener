@@ -9,19 +9,59 @@ class ProcessManager(object):
 
     @staticmethod
     def get_single_process(pid):
+        """
+        Get a Single Process given the PID
+        :param pid:  Process ID
+        :return:
+        """
         return Connection.Instance().db.manager.find_one({'pid': pid})
 
     @staticmethod
     def get_all_processes():
+        """
+        Return the list of the processes
+        :return:
+        """
         return list(Connection.Instance().db.manager.find().sort([('last_update', -1)]))
 
     @staticmethod
+    def get_all_processes_with_condition(condition):
+        """
+        Return the list of the processes
+        :return:
+        """
+        return list(Connection.Instance().db.manager.find(condition).sort([('last_update', -1)]))
+
+    @staticmethod
     def update_process(pid, newobj):
+        """
+        Update a single process
+        :param pid: PID
+        :param newobj: New Object to Set
+        :return:
+        """
         return Connection.Instance().db.manager.update({'pid': pid}, {'$set': newobj})
 
     @staticmethod
     def insert_process(process):
+        """
+        Insert new process
+        :param process: Process object
+        :return:
+        """
         return Connection.Instance().db.manager.insert_one(process)
+
+    @staticmethod
+    def terminate_process(pid, new_status):
+        """
+        Update the "terminated" of a singe process
+        :param pid:
+        :param new_status:
+        :return:
+        """
+        ProcessManager.update_process(pid, {
+            'terminated': new_status, 'last_update': what_time_is_it()
+        })
 
     def create_process(self, target, name, ptype):
         """
@@ -93,15 +133,3 @@ class ProcessManager(object):
             logging.error(e)
             return False, 'Process does not exists'
         return True, 'Process Stopped'
-
-    @staticmethod
-    def terminate_process(pid, new_status):
-        """
-        Update the "terminated" of a singe process
-        :param pid:
-        :param new_status:
-        :return:
-        """
-        ProcessManager.update_process(pid, {
-            'terminated': new_status, 'last_update': what_time_is_it()
-        })

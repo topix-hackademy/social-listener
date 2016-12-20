@@ -7,6 +7,10 @@ from application.twitter.tweets.collector import TweetCollector
 from application.utils import globals
 from flask import Flask, render_template, redirect, request, flash
 
+import re
+twitter_regex = re.compile(r'twitter_*')
+facebook_regex = re.compile(r'facebook_*')
+
 app = Flask(__name__)
 app.secret_key = 'social_manager'
 
@@ -37,11 +41,8 @@ def index():
 
 @app.route('/twitter')
 def twitter():
-    data = pm.get_all_processes()
-    last_update = 'Start your first process'
-    if data:
-        last_update = data[0]['last_update']
-    return render_template('twitter/index.html', data=data, last_update=last_update)
+    return render_template('twitter/index.html',
+                           data=pm.get_all_processes_with_condition({'ptype': twitter_regex}))
 
 
 @app.route('/twitter/refresh', methods=['GET'])

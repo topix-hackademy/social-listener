@@ -42,7 +42,6 @@ class TweetCollector(TwitterInterface):
         Tweets loader
         :return:
         """
-        import multiprocessing
         for page in self.fetcherInstance.get_tweets():
             for tweet in page:
                 try:
@@ -67,4 +66,5 @@ class TweetCollector(TwitterInterface):
                                                  })
                 except Exception as e:
                     logging.error("MongoDB Insert Error: " + e)
+        import multiprocessing
         ProcessManager.terminate_process(multiprocessing.current_process().pid, True)
