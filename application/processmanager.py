@@ -107,9 +107,8 @@ class ProcessManager(object):
         what_time_is_now = what_time_is_it()
         for process in Connection.Instance().db.manager.find({}):
             if (not psutil.pid_exists(process['pid']) and process['is_alive']) or \
-                    (psutil.pid_exists(process['pid']) and
-                    psutil.Process(process['pid']).status() == psutil.STATUS_ZOMBIE and
-                    process['is_alive']):
+                    (psutil.pid_exists(process['pid']) and psutil.Process(process['pid']).status() ==
+                        psutil.STATUS_ZOMBIE and process['is_alive']):
                 self.update_process(process['pid'], {
                         'is_alive': False,
                         'last_update': what_time_is_now
