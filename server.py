@@ -4,6 +4,7 @@ from application.configuration import Config
 from application.processmanager import ProcessManager
 from application.twitter.listener.listener import TwitterListener
 from application.twitter.tweets.collector import TweetCollector
+from application.twitter.follower.collector import FollowerCollector
 from application.utils import globals
 from flask import Flask, render_template, redirect, request, flash
 
@@ -128,12 +129,50 @@ def twitter_collector_create():
                                    request.form['secret_access_token'])
         collector.start(pm)
     except:
-        flash('Twitter Authentication FAILED or USER doesn\'t exists. Please try again.',
+        flash('Twitter Authentication FAILED or USER does not exists. Please try again.',
               category='danger')
         return redirect('/twitter/collector')
 
     flash('Process Started!', category='success')
     return redirect('/twitter')
+
+
+##################################################################################
+#                        Follower Collector Area                                 #
+##################################################################################
+
+
+@app.route('/twitter/follower', methods=['GET'])
+def twitter_follower_index():
+    """
+    Twitter collector index page
+    :return:
+    """
+    return render_template('twitter/follower/index.html')
+
+
+@app.route('/twitter/follower/create', methods=['POST'])
+def twitter_follower_create():
+    """
+    Method used to create a new subprocess of a Follower Collector object
+    :return:
+    """
+    try:
+        collector = FollowerCollector(request.form['user'],
+                                      request.form['consumer_key'],
+                                      request.form['secret_key'],
+                                      request.form['access_token'],
+                                      request.form['secret_access_token'])
+        collector.start(pm)
+    except:
+        flash('Twitter Authentication FAILED or USER does not exists. Please try again.',
+              category='danger')
+        return redirect('/twitter/follower')
+
+    flash('Process Started!', category='success')
+    return redirect('/twitter')
+
+
 
 if __name__ == '__main__':
     app.run()
