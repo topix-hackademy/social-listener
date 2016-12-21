@@ -10,7 +10,7 @@ class FollowerCollector(TwitterInterface):
 
     def __init__(self, user, *args, **kwargs):
         """
-        Twitter Collector. This class is used for retrieve tweets from a specific user
+        Twitter Collector. This class is used for retrieve followers of a specific user
         """
         super(FollowerCollector, self).__init__(*args, **kwargs)
         self.user = user
@@ -26,7 +26,7 @@ class FollowerCollector(TwitterInterface):
 
     def start(self, process_manager):
         """
-        Start async job for user's tweets
+        Start async job for user's followers
         :param process_manager: Process manager instance
         :return:
         """

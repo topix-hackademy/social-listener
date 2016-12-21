@@ -5,6 +5,7 @@ from application.processmanager import ProcessManager
 from application.twitter.listener.listener import TwitterListener
 from application.twitter.tweets.collector import TweetCollector
 from application.twitter.follower.collector import FollowerCollector
+from application.twitter.friends.collector import FriendsCollector
 from application.utils import globals
 from flask import Flask, render_template, redirect, request, flash
 
@@ -172,6 +173,40 @@ def twitter_follower_create():
     flash('Process Started!', category='success')
     return redirect('/twitter')
 
+##################################################################################
+#                        Friends Collector Area                                  #
+##################################################################################
+
+
+@app.route('/twitter/friends', methods=['GET'])
+def twitter_friends_index():
+    """
+    Twitter collector index page
+    :return:
+    """
+    return render_template('twitter/friends/index.html')
+
+
+@app.route('/twitter/friends/create', methods=['POST'])
+def twitter_friends_create():
+    """
+    Method used to create a new subprocess of a Friends Collector object
+    :return:
+    """
+    try:
+        collector = FriendsCollector(request.form['user'],
+                                     request.form['consumer_key'],
+                                     request.form['secret_key'],
+                                     request.form['access_token'],
+                                     request.form['secret_access_token'])
+        collector.start(pm)
+    except:
+        flash('Twitter Authentication FAILED or USER does not exists. Please try again.',
+              category='danger')
+        return redirect('/twitter/friends')
+
+    flash('Process Started!', category='success')
+    return redirect('/twitter')
 
 
 if __name__ == '__main__':
