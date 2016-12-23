@@ -86,8 +86,14 @@ def twitter_listener_create():
     Method used to create a new subprocess of a Twitter Listener object
     :return:
     """
+    if not request.form['keywords'] and not request.form['username']:
+        flash('Please insert at least a keywords or an username.',
+              category='danger')
+        return redirect('/twitter/listener')
+
     try:
-        listener = TwitterListener(request.form['hashtags'].replace(" ", "").split(','),
+        listener = TwitterListener(request.form['keywords'].replace(" ", "").split(','),
+                                   request.form['username'],
                                    request.form['consumer_key'],
                                    request.form['secret_key'],
                                    request.form['access_token'],
