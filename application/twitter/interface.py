@@ -1,5 +1,4 @@
 import tweepy
-import logging
 
 
 class TwitterInterface(object):
@@ -10,8 +9,6 @@ class TwitterInterface(object):
         self.api = tweepy.API(self.auth)
         try:
             self.api.verify_credentials()
-        except Exception as e:
-            logging.error("Error trying to connect the object: " + str(self))
-            logging.error(e)
-            raise Exception(e)
+        except Exception:
+            raise Exception("Authentication FAILED, please try with other credentials.")
 

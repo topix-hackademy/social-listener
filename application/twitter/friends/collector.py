@@ -34,8 +34,8 @@ class FriendsCollector(TwitterInterface):
             process_manager.create_process(target=self.fetcher,
                                            name=self.process_name,
                                            ptype='twitter_follower')
-        except Exception as e:
-            raise e
+        except Exception:
+            raise Exception('Error Creating new Process')
 
     def fetcher(self):
         """
@@ -65,6 +65,6 @@ class FriendsCollector(TwitterInterface):
                     'created': what_time_is_it()
                 })
             except Exception as e:
-                logging.error("MongoDB Insert Error in get friends: " + e)
+                logging.error("MongoDB Insert Error in get friends: " + e.message)
         import multiprocessing
         ProcessManager.terminate_process(multiprocessing.current_process().pid, True)

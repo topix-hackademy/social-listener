@@ -16,11 +16,11 @@ class TweetFriends(object):
         self.process_name = process_name
         try:
             self.user = self.api.get_user(user)
-        except Exception as e:
-            raise e
+        except Exception:
+            raise Exception('User does not exists')
 
     def get_friends(self):
-        for friend_id in self.api.friends_ids(self.user):
+        for friend_id in self.api.friends_ids(self.user.id):
             try:
                 yield self.api.get_user(friend_id)
             except tweepy.RateLimitError:

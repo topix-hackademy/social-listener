@@ -86,7 +86,7 @@ def twitter_listener_create():
     Method used to create a new subprocess of a Twitter Listener object
     :return:
     """
-    if not request.form['keywords'] and not request.form['username']:
+    if not request.form['keywords'].replace(" ", "") and not request.form['username'].replace(" ", ""):
         flash('Please insert at least a keywords or an username.',
               category='danger')
         return redirect('/twitter/listener')
@@ -99,9 +99,8 @@ def twitter_listener_create():
                                    request.form['access_token'],
                                    request.form['secret_access_token'])
         listener.start(pm)
-    except:
-        flash('Twitter Authentication FAILED! Please try again.',
-              category='danger')
+    except Exception as e:
+        flash(e.message, category='danger')
         return redirect('/twitter/listener')
 
     flash('Process Started!', category='success')
@@ -135,9 +134,8 @@ def twitter_collector_create():
                                    request.form['access_token'],
                                    request.form['secret_access_token'])
         collector.start(pm)
-    except:
-        flash('Twitter Authentication FAILED or USER does not exists. Please try again.',
-              category='danger')
+    except Exception as e:
+        flash(e.message, category='danger')
         return redirect('/twitter/collector')
 
     flash('Process Started!', category='success')
@@ -171,9 +169,8 @@ def twitter_follower_create():
                                       request.form['access_token'],
                                       request.form['secret_access_token'])
         collector.start(pm)
-    except:
-        flash('Twitter Authentication FAILED or USER does not exists. Please try again.',
-              category='danger')
+    except Exception as e:
+        flash(e.message, category='danger')
         return redirect('/twitter/follower')
 
     flash('Process Started!', category='success')
@@ -206,9 +203,8 @@ def twitter_friends_create():
                                      request.form['access_token'],
                                      request.form['secret_access_token'])
         collector.start(pm)
-    except:
-        flash('Twitter Authentication FAILED or USER does not exists. Please try again.',
-              category='danger')
+    except Exception as e:
+        flash(e.message, category='danger')
         return redirect('/twitter/friends')
 
     flash('Process Started!', category='success')

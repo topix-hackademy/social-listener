@@ -35,7 +35,7 @@ class FollowerCollector(TwitterInterface):
                                            name=self.process_name,
                                            ptype='twitter_follower')
         except Exception as e:
-            raise e
+            raise Exception('Error Creating new Process')
 
     def fetcher(self):
         """

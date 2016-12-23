@@ -34,8 +34,8 @@ class TweetCollector(TwitterInterface):
             process_manager.create_process(target=self.fetcher,
                                            name=self.process_name,
                                            ptype='twitter_collector')
-        except Exception as e:
-            raise e
+        except Exception:
+            raise Exception('Error Creating new Process')
 
     def fetcher(self):
         """
@@ -64,7 +64,7 @@ class TweetCollector(TwitterInterface):
                         'user': tweet.user.screen_name,
                         'created': what_time_is_it()
                     })
-                except Exception as e:
-                    logging.error("MongoDB Insert Error in collector: " + e)
+                except Exception:
+                    logging.error("MongoDB Insert Error in collector")
         import multiprocessing
         ProcessManager.terminate_process(multiprocessing.current_process().pid, True)

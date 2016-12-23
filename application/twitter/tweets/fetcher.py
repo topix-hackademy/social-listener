@@ -16,8 +16,8 @@ class TweetsFetcher(object):
         self.process_name = process_name
         try:
             self.api.get_user(user)
-        except Exception as e:
-            raise e
+        except Exception:
+            raise Exception('User does not exists')
         self.user_cursor = tweepy.Cursor(self.api.user_timeline, screen_name=user)
 
     def get_tweets(self):

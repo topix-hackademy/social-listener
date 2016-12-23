@@ -16,8 +16,8 @@ class TweetFollower(object):
         self.process_name = process_name
         try:
             self.user = self.api.get_user(user)
-        except Exception as e:
-            raise e
+        except Exception:
+            raise Exception('User does not exists')
         self.user_cursor = tweepy.Cursor(self.api.followers, screen_name=user)
 
     def get_followers(self):
