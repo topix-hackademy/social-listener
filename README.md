@@ -30,6 +30,6 @@ In Development Mode:
 
     export FLASK_DEBUG=1
     export FLASK=server.py
-    flask run
+    python server.py
     
 In Production Mode use WSGI with Apache/NGINX (documentation will be provided soon..).
