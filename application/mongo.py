@@ -24,10 +24,10 @@ class Connection:
         :return:
         """
         try:
-            self.db.twitter.ensure_index([('created', DESCENDING)], name='_date_index1', backround=True)
-            self.db.twitter.ensure_index([('source', ASCENDING)], name='_source_index1', backround=True)
-            self.db.twitter.ensure_index([('hashtags', ASCENDING)], name='_hashtags_index1', backround=True)
-            self.db.twitter.ensure_index([('user', ASCENDING)], name='_user_index1', backround=True)
+            self.db.twitter.ensure_index([('created', DESCENDING)], name='_date_index1', background=True)
+            self.db.twitter.ensure_index([('source', ASCENDING)], name='_source_index1', background=True)
+            self.db.twitter.ensure_index([('hashtags', ASCENDING)], name='_hashtags_index1', background=True)
+            self.db.twitter.ensure_index([('user', ASCENDING)], name='_user_index1', background=True)
         except Exception, error:
             logging.error('Error during index creation: %s' % error.message)
             raise error
