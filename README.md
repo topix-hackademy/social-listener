@@ -38,6 +38,6 @@ In Development Mode:
      
 and in a second terminal window 
 
-    npm watch (watch on files)
+    npm run watch (watch on files)
     
 In Production Mode use WSGI with Apache/NGINX (documentation will be provided soon..).
