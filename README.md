@@ -18,6 +18,10 @@ You need also:
     MongoDB up and running
     Twitter Developer Account 
 
+Install front-end requirements:
+
+    npm install
+
 ## How to Run
 
 Create your own config file:
@@ -30,6 +34,6 @@ In Development Mode:
 
     export FLASK_DEBUG=1
     export FLASK=server.py
-    python server.py
+    npm start
     
 In Production Mode use WSGI with Apache/NGINX (documentation will be provided soon..).

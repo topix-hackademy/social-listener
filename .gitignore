@@ -100,3 +100,4 @@ ENV/
 # Font-end dep
 /node_modules
 /static/build
+/static/fonts

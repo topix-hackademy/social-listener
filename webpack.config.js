@@ -16,8 +16,8 @@ module.exports = {
     loaders: [
 
       { test: /\.html$/, loader: 'to-string!html-loader' },
-      { test: /\.css$/, loader: 'to-string!style-loader!css-loader' },
-      { test: /\.scss$/, loader: 'to-string!style-loader!css-loader!sass-loader' }
+      { test: /\.css$/, loader: 'to-string!style-loader!css-loader!postcss-loader' },
+      { test: /\.scss$/, loader: 'to-string!style-loader!css-loader!postcss-loader!sass-loader' }
       ,
       {
         test: /\.js(x?)$/, loader: 'babel-loader' ,
