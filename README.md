@@ -34,6 +34,10 @@ In Development Mode:
 
     export FLASK_DEBUG=1
     export FLASK=server.py
-    npm start
+    npm start (compile and run python server)
+     
+and in a second terminal window 
+
+    npm watch (watch on files)
     
 In Production Mode use WSGI with Apache/NGINX (documentation will be provided soon..).

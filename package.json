@@ -4,7 +4,7 @@
   "description": "Python project for social-network crawling",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --progress && python server.py ",
+    "start": "webpack --progress python server.py",
     "watch": "webpack --watch --progress",
     "build": "webpack -p --progress",
     "test": "echo \"Error: no test specified\" && exit 1"
