@@ -1,0 +1,32 @@
+{
+  "name": "social-listener",
+  "version": "1.0.0",
+  "description": "Python project for social-network crawling",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/topix-hackademy/social-listener.git"
+  },
+  "keywords": [
+    "python",
+    "js",
+    "social",
+    "network"
+  ],
+  "author": "hackademy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/topix-hackademy/social-listener/issues"
+  },
+  "homepage": "https://github.com/topix-hackademy/social-listener#readme",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.18.0",
+    "webpack": "^1.14.0"
+  }
+}
