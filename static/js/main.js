@@ -4,3 +4,4 @@
 window.$ = window.jQuery = require('jquery')
 require('bootstrap-loader');
 require('../style/main.scss');
+

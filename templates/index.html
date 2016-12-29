@@ -1,13 +1,52 @@
 {% extends "layout.html" %}
 {% block body %}
     <div class="col-md-12">
-        <h1>Available Services</h1>
-        <h2><a href="/twitter">Twitter</a></h2>
-        <ul>
-            <li><h3><a href="/twitter/listener" >Tweets Listener</a> </h3></li>
-            <li><h3><a href="/twitter/collector" >Tweets Collector</a> </h3></li>
-            <li><h3><a href="/twitter/follower" >Follower Collector</a> </h3></li>
-            <li><h3><a href="/twitter/friends" >Friends Collector</a> </h3></li>
-        </ul>
+        <p>Social<strong>Listener</strong></p>
+        <hr>
+        <h1 class="text-color-red">AVAILABLE SERVICES</h1>
+    </div>
+    <div class="col-md-12 margin-top-100 margin-bottom-50">
+        <h2><i class="fa fa-twitter title-icons-pipe"></i> <a href="/twitter">Twitter</a></h2>
+        <hr>
+    </div>
+    <div class="col-md-3 text-center">
+        <a href="/twitter/listener" >
+            <h2>
+                <i class="fa fa-assistive-listening-systems font-27"></i>
+            </h2>
+            <p>
+                <strong>Tweets <span class="text-color-red">Listener</span></strong>
+            </p>
+        </a>
+    </div>
+    <div class="col-md-3 text-center">
+        <a href="/twitter/collector" >
+            <h2>
+                <i class="fa fa-file-o"></i>
+            </h2>
+            <p>
+                <strong><span class="text-color-red">Tweets</span> Collector</strong>
+            </p>
+        </a>
+    </div>
+    <div class="col-md-3 text-center">
+        <a href="/twitter/follower" >
+            <h2>
+                <i class="fa fa fa-file-o"></i>
+            </h2>
+            <p>
+                <strong><span class="text-color-red">Follower</span> Collector</strong>
+            </p>
+        </a>
+    </div>
+    <div class="col-md-3 text-center">
+        <a href="/twitter/listener" >
+            <h2>
+                <i class="fa fa-user-o"></i>
+            </h2>
+            <p>
+                <strong><span class="text-color-red">Friends</span>Collector</strong>
+            </p>
+        </a>
     </div>
 {% endblock %}

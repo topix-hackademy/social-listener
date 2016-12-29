@@ -8,36 +8,23 @@
 </head>
 <body>
 <div class="container">
-    <nav class="navbar navbar-inverse">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Social Manager</a>
+    <div class="row">
+        <div class="col-md-12">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p class="alert bg-{{ category }} text-center">
+                            <strong>{{ message }}</strong>
+                        </p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
         </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        </div>
-    </nav>
-    <div class="col-md-12">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <p class="alert bg-{{ category }} text-center">
-                        <strong>{{ message }}</strong>
-                    </p>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-    </div>
 
     <!-- Content -->
     {% block body %}{% endblock %}
 
+    </div>
 </div>
 </body>
 </html>
