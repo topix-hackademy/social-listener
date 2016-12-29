@@ -1,50 +1,55 @@
 {% extends "layout.html" %}
 {% block body %}
     <!-- BreadCrumb -->
-    <ol class="breadcrumb">
-        <li><a href="/">HOME</a></li>
-        <li><a href="/twitter">TWITTER HOME</a></li>
-        <li><a href="/twitter/collector">COLLECTOR</a></li>
-    </ol>
+    <div class="col-md-12">
+        <ol class="breadcrumb no-padding-left">
+            <li><a href="/">HOME</a></li>
+            <li><a href="/twitter">TWITTER HOME</a></li>
+            <li><a href="/twitter/collector">COLLECTOR</a></li>
+        </ol>
+    </div>
 
     <!-- Page Content -->
     <div class="col-md-12" id="twitter_collector_create">
-        <h2>Tweet Collector</h2>
+        <h2><i class="fa fa-file-o title-icons-pipe"></i> Tweet Collector</h2>
+        <hr>
+
         <div class="jumbotron">
             <form class="form-horizontal" action="/twitter/collector/create" method="POST">
                 <div class="form-group">
-                    <label for="ConsumerKey" class="col-sm-2 control-label">Consumer Key</label>
-                    <div class="col-sm-10">
+                    {#<label for="ConsumerKey" class="col-sm-2 control-label">Consumer Key</label>#}
+                    <div class="col-sm-6 col-sm-offset-3">
                         <input type="text" name="consumer_key" class="form-control" id="ConsumerKey" placeholder="ConsumerKey" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="SecretKey" class="col-sm-2 control-label">Secret Key</label>
-                    <div class="col-sm-10">
+                    {#<label for="SecretKey" class="col-sm-2 control-label">Secret Key</label>#}
+                    <div class="col-sm-6 col-sm-offset-3">
                         <input type="text" name="secret_key" class="form-control" id="SecretKey" placeholder="SecretKey" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="AccessToken" class="col-sm-2 control-label">Access Token</label>
-                    <div class="col-sm-10">
+                    {#<label for="AccessToken" class="col-sm-2 control-label">Access Token</label>#}
+                    <div class="col-sm-6 col-sm-offset-3">
                         <input type="text" name="access_token" class="form-control" id="AccessToken" placeholder="AccessToken" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="SecretAccessToken" class="col-sm-2 control-label">Secret Access Token</label>
-                    <div class="col-sm-10">
+                    {#<label for="SecretAccessToken" class="col-sm-2 control-label">Secret Access Token</label>#}
+                    <div class="col-sm-6 col-sm-offset-3">
                         <input type="text" name="secret_access_token" class="form-control" id="SecretAccessToken" placeholder="SecretAccessToken" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="Hashtags" class="col-sm-2 control-label">User Name</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="user" class="form-control" id="user" placeholder="user name.." required>
+                    {#<label for="Hashtags" class="col-sm-2 control-label">User Name</label>#}
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <input type="text" name="user" class="form-control" id="user" placeholder="User name.." required>
                     </div>
                 </div>
+                <div class="col-md-12 text-center"><p class="text-color-red">---</p></div>
                 <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-warning">Start Process</button>
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <button type="submit" class="btn custom-btn pull-right col-xs-12">Start Process</button>
                     </div>
                 </div>
             </form>
