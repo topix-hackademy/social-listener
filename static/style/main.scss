@@ -30,12 +30,46 @@ a, a:hover {
 	color: #000;
 }
 
+.breadcrumb {
+	background: #fff;
+}
+
+.jumbotron {
+	background: #fff;
+}
+
+.form-control:focus {
+	border-color: $custom-red;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(207, 34, 34, 0.6);
+}
+
+.breadcrumb > li + li:before {
+	color: $custom-red;
+}
+
+.custom-btn {
+	background: #fff;
+	color: #000;
+	border: 1px solid #EEEEF1;
+}
+
+.custom-btn:hover {
+	background: $custom-red;
+	font-weight: 600;
+	color: #fff;
+	border: 1px solid $custom-red;
+}
+
 .margin-top-100 {
 	margin-top: 100px;
 }
 
 .margin-bottom-50 {
 	margin-bottom: 50px;
+}
+
+.no-padding-left {
+	padding-left: 0;
 }
 
 .title-icons-pipe {

@@ -1,62 +1,65 @@
 {% extends "layout.html" %}
 {% block body %}
     <!-- BreadCrumb -->
-    <ol class="breadcrumb">
-        <li><a href="/">HOME</a></li>
-        <li><a href="/twitter">TWITTER HOME</a></li>
-        <li><a href="/twitter/listener">LISTENER</a></li>
-    </ol>
+    <div class="col-md-12">
+        <ol class="breadcrumb no-padding-left">
+            <li><a href="/">HOME</a></li>
+            <li><a href="/twitter">TWITTER HOME</a></li>
+            <li><a href="/twitter/listener">LISTENER</a></li>
+        </ol>
+    </div>
 
     <!-- Page Content -->
     <div class="col-md-12" id="twitter_listener_create">
-        <h2>Twitter listener</h2>
+        <h2><i class="fa fa-assistive-listening-systems title-icons-pipe"></i> Twitter</h2>
+        <hr>
         <div class="jumbotron">
             <form class="form-horizontal" action="/twitter/listener/create" method="POST">
                 <div class="form-group">
-                    <label for="ConsumerKey" class="col-sm-2 control-label">Consumer Key</label>
-                    <div class="col-sm-10">
+                    {#<label for="ConsumerKey" class="col-sm-2 control-label">Consumer Key</label>#}
+                    <div class="col-sm-6 col-sm-offset-3">
                         <input type="text" name="consumer_key" class="form-control" id="ConsumerKey" placeholder="ConsumerKey" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="SecretKey" class="col-sm-2 control-label">Secret Key</label>
-                    <div class="col-sm-10">
+                    {#<label for="SecretKey" class="col-sm-2 control-label">Secret Key</label>#}
+                    <div class="col-sm-6 col-sm-offset-3">
                         <input type="text" name="secret_key" class="form-control" id="SecretKey" placeholder="SecretKey" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="AccessToken" class="col-sm-2 control-label">Access Token</label>
-                    <div class="col-sm-10">
+                    {#<label for="AccessToken" class="col-sm-2 control-label">Access Token</label>#}
+                    <div class="col-sm-6 col-sm-offset-3">
                         <input type="text" name="access_token" class="form-control" id="AccessToken" placeholder="AccessToken" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="SecretAccessToken" class="col-sm-2 control-label">Secret Access Token</label>
-                    <div class="col-sm-10">
+                    {#<label for="SecretAccessToken" class="col-sm-2 control-label">Secret Access Token</label>#}
+                    <div class="col-sm-6 col-sm-offset-3">
                         <input type="text" name="secret_access_token" class="form-control" id="SecretAccessToken" placeholder="SecretAccessToken" required>
                     </div>
                 </div>
                 <div class="col-md-12 text-center"><p>---</p></div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="keywords" class="col-sm-2 control-label">Keywords</label>
-                        <div class="col-sm-10">
+                        {#<label for="keywords" class="col-sm-2 control-label">Keywords</label>#}
+                        <div class="col-sm-12">
                             <input type="text" name="keywords" class="form-control" id="keywords" placeholder="keywords1, keywords2, keywords3, ..." >
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="username" class="col-sm-2 control-label">User</label>
-                        <div class="col-sm-10">
+                        {#<label for="username" class="col-sm-2 control-label">User</label>#}
+                        <div class="col-sm-12">
                             <input type="text" name="username" class="form-control" id="username" placeholder="Twitter User Name.." >
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12 text-center"><p>---</p></div>
                 <div class="form-group">
-                    <div class="col-sm-12">
-                        <button type="submit" class="btn btn-warning pull-right col-xs-12">Start Process</button>
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <button type="submit" class="btn custom-btn pull-right col-xs-12">Start Process</button>
                     </div>
                 </div>
             </form>
