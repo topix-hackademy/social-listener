@@ -4,6 +4,8 @@
   "description": "Python project for social-network crawling",
   "main": "index.js",
   "scripts": {
+    "watch": "webpack --watch --progress",
+    "build": "webpack -p --progress",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,10 +25,23 @@
   },
   "homepage": "https://github.com/topix-hackademy/social-listener#readme",
   "devDependencies": {
-    "babel-cli": "^6.18.0",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.18.0",
+    "babel-preset-es2015-webpack": "^6.4.3",
+    "babel-preset-stage-0": "^6.16.0",
+    "css-loader": "^0.26.1",
+    "file-loader": "^0.9.0",
+    "html-loader": "^0.4.4",
+    "node-sass": "^4.1.1",
+    "sass-loader": "^4.1.1",
+    "style-loader": "^0.13.1",
+    "to-string-loader": "^1.1.5",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.14.0",
+    "webpack-build-notifier": "^0.1.13"
+  },
+  "dependencies": {
     "webpack": "^1.14.0"
   }
 }
