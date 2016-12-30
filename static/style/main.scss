@@ -2,6 +2,7 @@ $custom-red: #cf2222;
 
 $fa-font-path : "../../node_modules/font-awesome/fonts/";
 @import "../../node_modules/font-awesome/scss/font-awesome.scss";
+@import "../../node_modules/angular-toastr/dist/angular-toastr";
 
 body, html {
 	height: 100%;
@@ -84,4 +85,3 @@ a, a:hover {
 .text-color-red {
 	color: $custom-red;
 }
-

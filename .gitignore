@@ -7,6 +7,10 @@ config.ini
 # Idea
 .idea
 
+# Osx
+.DS_Store
+.tags*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
