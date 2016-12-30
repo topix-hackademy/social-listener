@@ -10,6 +10,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+            <p>Social<strong>Listener</strong></p>
+            <hr>
+        </div>
+        <div class="col-md-12">
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}
@@ -19,10 +23,6 @@
                     {% endfor %}
                 {% endif %}
             {% endwith %}
-        </div>
-        <div class="col-md-12">
-            <p>Social<strong>Listener</strong></p>
-            <hr>
         </div>
     <!-- Content -->
     {% block body %}{% endblock %}
