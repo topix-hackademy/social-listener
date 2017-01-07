@@ -1,8 +1,6 @@
 module.exports.flashcontroller = ['$scope', 'toastr', ($scope, toastr) => {
     $scope.initToastr = (flash_message, flash_status) => {
 
-        console.log('initToastr ' + flash_message +' '+ flash_status);
-
         if(flash_message==undefined || flash_message=="" || flash_message==null) return;
         switch (flash_status){
             case 'success':
@@ -11,7 +9,7 @@ module.exports.flashcontroller = ['$scope', 'toastr', ($scope, toastr) => {
             case 'warning':
                 toastr.warning(flash_message, "Warning!");
                 break;
-            case 'error':
+            case 'danger':
                 toastr.error(flash_message, "Error!");
                 break;
         }

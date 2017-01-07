@@ -66,8 +66,9 @@ def twitter_stop(pid):
     :return:
     """
     flag, message = pm.stop_process(pid)
+    pm.refresh_status()
     flash(message, category='success' if flag else 'danger')
-    return redirect('/twitter/refresh')
+    return redirect('/twitter')
 
 
 ##################################################################################
