@@ -45,26 +45,29 @@ class TweetCollector(TwitterInterface):
         for page in self.fetcherInstance.get_tweets():
             for tweet in page:
                 try:
-                    Connection.Instance().db.twitter.insert_one({
-                        'source': 'collector',
-                        'data': {
-                            'created_at': tweet.created_at,
-                            'favorite_count': tweet.favorite_count,
-                            'geo': tweet.geo,
-                            'id': tweet.id,
-                            'source': tweet.source,
-                            'in_reply_to_screen_name': tweet.in_reply_to_screen_name,
-                            'in_reply_to_status_id': tweet.in_reply_to_status_id,
-                            'in_reply_to_user_id': tweet.in_reply_to_user_id,
-                            'retweet_count': tweet.retweet_count,
-                            'retweeted': tweet.retweeted,
-                            'text': tweet.text,
-                            'entities': tweet.entities
-                        },
-                        'user': tweet.user.screen_name,
-                        'created': what_time_is_it()
-                    })
-                except Exception:
-                    logging.error("MongoDB Insert Error in collector")
+                    if not Connection.Instance().db.twitter.find_one({'user': tweet.user.screen_name,
+                                                                      'source': 'collector',
+                                                                      'data.id': tweet.id}):
+                        Connection.Instance().db.twitter.insert_one({
+                            'source': 'collector',
+                            'data': {
+                                'created_at': tweet.created_at,
+                                'favorite_count': tweet.favorite_count,
+                                'geo': tweet.geo,
+                                'id': tweet.id,
+                                'source': tweet.source,
+                                'in_reply_to_screen_name': tweet.in_reply_to_screen_name,
+                                'in_reply_to_status_id': tweet.in_reply_to_status_id,
+                                'in_reply_to_user_id': tweet.in_reply_to_user_id,
+                                'retweet_count': tweet.retweet_count,
+                                'retweeted': tweet.retweeted,
+                                'text': tweet.text,
+                                'entities': tweet.entities
+                            },
+                            'user': tweet.user.screen_name,
+                            'created': what_time_is_it()
+                        })
+                except Exception as genericException:
+                    logging.error("MongoDB Insert Error in collector: %s" % genericException)
         import multiprocessing
         ProcessManager.terminate_process(multiprocessing.current_process().pid, True)
