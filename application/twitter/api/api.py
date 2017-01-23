@@ -6,6 +6,10 @@ class APIManager(object):
     
     @staticmethod
     def index():
+        """
+        API Manager Index Page
+        :return:
+        """
         return jsonify(
             status=200,
             detail="Welcome to Social Manager API",
@@ -17,6 +21,10 @@ class TwitterAPI(object):
     
     @staticmethod
     def index():
+        """
+        Twitter API Index Page
+        :return:
+        """
         return jsonify(
             status=200,
             detail="Twitter API Index",
