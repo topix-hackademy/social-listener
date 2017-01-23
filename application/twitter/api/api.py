@@ -2,7 +2,29 @@ from application.mongo import Connection
 from flask import jsonify
 
 
+class APIManager(object):
+    
+    @staticmethod
+    def index():
+        return jsonify(
+            status=200,
+            detail="Welcome to Social Manager API",
+            services=[{"source": "Twitter", "url": "/api/v1/twitter/"}]
+        )
+
+
 class TwitterAPI(object):
+    
+    @staticmethod
+    def index():
+        return jsonify(
+            status=200,
+            detail="Twitter API Index",
+            services=[{"name": "Listener",
+                       "url": "/api/v1/twitter/search/{KEYWORD-TO-SEARCH}",
+                       "help": "/api/v1/twitter/keywords"},
+                      ]
+        )
     
     @staticmethod
     def get_keywords():

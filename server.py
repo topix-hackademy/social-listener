@@ -6,7 +6,7 @@ from application.twitter.listener.listener import TwitterListener
 from application.twitter.tweets.collector import TweetCollector
 from application.twitter.follower.collector import FollowerCollector
 from application.twitter.friends.collector import FriendsCollector
-from application.twitter.api.api import TwitterAPI
+from application.twitter.api.api import TwitterAPI, APIManager
 from application.utils import globals
 from flask import Flask, render_template, redirect, request, flash
 
@@ -70,6 +70,15 @@ def twitter_stop(pid):
     flash(message, category='success' if flag else 'danger')
     return redirect('/twitter/refresh')
 
+
+@app.route('/api/v1/', methods=['GET'])
+def api_index():
+    return APIManager.index()
+
+
+@app.route('/api/v1/twitter', methods=['GET'])
+def api_twitter_index():
+    return TwitterAPI.index()
 
 ##################################################################################
 #                        Twitter Listener Area                                   #
