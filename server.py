@@ -6,6 +6,7 @@ from application.twitter.listener.listener import TwitterListener
 from application.twitter.tweets.collector import TweetCollector
 from application.twitter.follower.collector import FollowerCollector
 from application.twitter.friends.collector import FriendsCollector
+from application.twitter.api.api import TwitterAPI
 from application.utils import globals
 from flask import Flask, render_template, redirect, request, flash
 
@@ -105,6 +106,21 @@ def twitter_listener_create():
 
     flash('Process Started!', category='success')
     return redirect('/twitter')
+
+
+@app.route('/api/v1/twitter/keywords', methods=['GET'])
+def api_get_keywords():
+    return TwitterAPI.get_keywords()
+
+
+@app.route('/api/v1/twitter/search/<keyword>', methods=['GET'])
+def api_search(keyword):
+    return TwitterAPI.search(keyword)
+
+
+@app.route('/api/v1/twitter/search/<keyword>/<page>', methods=['GET'])
+def api_search_paginated(keyword, page):
+    return TwitterAPI.search(keyword, page)
 
 
 ##################################################################################
