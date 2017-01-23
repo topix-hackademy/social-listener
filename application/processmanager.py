@@ -105,15 +105,15 @@ class ProcessManager(object):
         :return:
         """
         what_time_is_now = what_time_is_it()
-        for process in Connection.Instance().db.manager.find({}):
-            if (not psutil.pid_exists(process['pid']) and process['is_alive']) or \
+        for process in Connection.Instance().db.manager.find({"is_alive": True}):
+            if (not psutil.pid_exists(process['pid'])) or \
                     (psutil.pid_exists(process['pid']) and psutil.Process(process['pid']).status() ==
-                        psutil.STATUS_ZOMBIE and process['is_alive']):
+                        psutil.STATUS_ZOMBIE):
                 self.update_process(process['pid'], {
                         'is_alive': False,
                         'last_update': what_time_is_now
                     })
-            elif psutil.pid_exists(process['pid']) and process['is_alive']:
+            elif psutil.pid_exists(process['pid']):
                 self.update_process(process['pid'], {'last_update': what_time_is_now})
         logging.info('Refresh Done!')
 
