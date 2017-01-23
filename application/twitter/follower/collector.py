@@ -45,26 +45,29 @@ class FollowerCollector(TwitterInterface):
         for page in self.fetcherInstance.get_followers():
             for follower in page:
                 try:
-                    Connection.Instance().db.twitter.insert_one({
-                        'source': 'follower',
-                        'data': {
-                            'userid': follower.id,
-                            'description': follower.description,
-                            'favourites_count': follower.favourites_count,
-                            'followers_count': follower.followers_count,
-                            'friends_count': follower.friends_count,
-                            'lang': follower.lang,
-                            'location': follower.location,
-                            'name': follower.name,
-                            'screen_name': follower.screen_name,
-                            'geo_enabled': follower.geo_enabled,
-                            'url': follower.url,
-                            'time_zone': follower.time_zone,
-                            'statuses_count': follower.statuses_count
-                        },
-                        'user': self.user,
-                        'created': what_time_is_it()
-                    })
+                    if not Connection.Instance().db.twitter.find_one({'source': 'follower',
+                                                                      'user': self.user,
+                                                                      'data.userid': follower.id}):
+                        Connection.Instance().db.twitter.insert_one({
+                            'source': 'follower',
+                            'data': {
+                                'userid': follower.id,
+                                'description': follower.description,
+                                'favourites_count': follower.favourites_count,
+                                'followers_count': follower.followers_count,
+                                'friends_count': follower.friends_count,
+                                'lang': follower.lang,
+                                'location': follower.location,
+                                'name': follower.name,
+                                'screen_name': follower.screen_name,
+                                'geo_enabled': follower.geo_enabled,
+                                'url': follower.url,
+                                'time_zone': follower.time_zone,
+                                'statuses_count': follower.statuses_count
+                            },
+                            'user': self.user,
+                            'created': what_time_is_it()
+                        })
                 except Exception as e:
                     logging.error("MongoDB Insert Error in get followers: " + e)
         import multiprocessing
