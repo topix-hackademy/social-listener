@@ -69,7 +69,10 @@ class TwitterAPI(object):
         :param page: Page Number
         :return:
         """
-        page = int(page) if int(page) > 0 else 1
+        try:
+            page = int(page) if int(page) > 0 else 1
+        except:
+            page = 1
         n_result = 10
         total_result = Connection.Instance().db.twitter.find({"keywords": keyword, "source": "listener"}).count()
         result = list(Connection.Instance().db.twitter.find(
@@ -114,7 +117,10 @@ class TwitterAPI(object):
         :return:
         """
         total_result = Connection.Instance().db.twitter.find({"user": user, "source": "collector"}).count()
-        page = int(page) if int(page) > 0 else 1
+        try:
+            page = int(page) if int(page) > 0 else 1
+        except:
+            page = 1
         n_result = 10
         result = list(Connection.Instance().db.twitter.find(
             {
@@ -144,7 +150,10 @@ class TwitterAPI(object):
         :return:
         """
         total_result = Connection.Instance().db.twitter.find({"user": user, "source": "follower"}).count()
-        page = int(page) if int(page) > 0 else 1
+        try:
+            page = int(page) if int(page) > 0 else 1
+        except:
+            page = 1
         n_result = 10
         result = list(Connection.Instance().db.twitter.find(
             {
@@ -174,7 +183,10 @@ class TwitterAPI(object):
         :return:
         """
         total_result = Connection.Instance().db.twitter.find({"user": user, "source": "friends"}).count()
-        page = int(page) if int(page) > 0 else 1
+        try:
+            page = int(page) if int(page) > 0 else 1
+        except:
+            page = 1
         n_result = 10
         result = list(Connection.Instance().db.twitter.find(
             {
