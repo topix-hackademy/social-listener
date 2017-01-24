@@ -41,3 +41,13 @@ and in a second terminal window
     npm run watch (watch on files)
     
 In Production Mode use WSGI with Apache/NGINX (documentation will be provided soon..).
+
+## API (Working on..)
+
+We support API! Go to:
+
+    /api/v1
+    
+For now, we only support Twitter APIs:
+
+    /api/v1/twitter

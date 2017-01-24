@@ -53,8 +53,21 @@ class TwitterUserStreamingListener(tweepy.StreamListener):
         try:
             Connection.Instance().db.twitter.insert_one(
                 {
-                    'source': 'listener',
-                    'data': tweet._json,
+                    'source': 'collector',
+                    'data': {
+                        'created_at': tweet.created_at,
+                        'favorite_count': tweet.favorite_count,
+                        'geo': tweet.geo,
+                        'id': tweet.id,
+                        'source': tweet.source,
+                        'in_reply_to_screen_name': tweet.in_reply_to_screen_name,
+                        'in_reply_to_status_id': tweet.in_reply_to_status_id,
+                        'in_reply_to_user_id': tweet.in_reply_to_user_id,
+                        'retweet_count': tweet.retweet_count,
+                        'retweeted': tweet.retweeted,
+                        'text': tweet.text,
+                        'entities': tweet.entities
+                    },
                     'user': self.user,
                     'created': what_time_is_it()
                 })

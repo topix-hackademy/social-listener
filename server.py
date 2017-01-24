@@ -6,6 +6,7 @@ from application.twitter.listener.listener import TwitterListener
 from application.twitter.tweets.collector import TweetCollector
 from application.twitter.follower.collector import FollowerCollector
 from application.twitter.friends.collector import FriendsCollector
+from application.twitter.api.api import TwitterAPI, APIManager
 from application.utils import globals
 from flask import Flask, render_template, redirect, request, flash
 
@@ -41,13 +42,13 @@ def index():
 ##################################################################################
 
 
-@app.route('/twitter')
+@app.route('/twitter/')
 def twitter():
     return render_template('twitter/index.html',
                            data=pm.get_all_processes_with_condition({'ptype': twitter_regex}))
 
 
-@app.route('/twitter/refresh', methods=['GET'])
+@app.route('/twitter/refresh/', methods=['GET'])
 def twitter_refresh():
     """
     Refresh the process List
@@ -58,7 +59,7 @@ def twitter_refresh():
     return redirect('/twitter')
 
 
-@app.route('/twitter/stop/<pid>', methods=['GET'])
+@app.route('/twitter/stop/<pid>/', methods=['GET'])
 def twitter_stop(pid):
     """
     Stop a specific process
@@ -70,12 +71,21 @@ def twitter_stop(pid):
     return redirect('/twitter/refresh')
 
 
+@app.route('/api/v1/', methods=['GET'])
+def api_index():
+    return APIManager.index()
+
+
+@app.route('/api/v1/twitter/', methods=['GET'])
+def api_twitter_index():
+    return TwitterAPI.index()
+
 ##################################################################################
 #                        Twitter Listener Area                                   #
 ##################################################################################
 
 
-@app.route('/twitter/listener', methods=['GET'])
+@app.route('/twitter/listener/', methods=['GET'])
 def twitter_listener_index():
     return render_template('twitter/listener/index.html')
 
@@ -107,12 +117,27 @@ def twitter_listener_create():
     return redirect('/twitter')
 
 
+@app.route('/api/v1/twitter/keywords', methods=['GET'])
+def api_get_keywords():
+    return TwitterAPI.get_keywords()
+
+
+@app.route('/api/v1/twitter/search/<keyword>', methods=['GET'])
+def api_search(keyword):
+    return TwitterAPI.search(keyword)
+
+
+@app.route('/api/v1/twitter/search/<keyword>/<page>', methods=['GET'])
+def api_search_paginated(keyword, page):
+    return TwitterAPI.search(keyword, page)
+
+
 ##################################################################################
 #                        Twitter Collector Area                                  #
 ##################################################################################
 
 
-@app.route('/twitter/collector', methods=['GET'])
+@app.route('/twitter/collector/', methods=['GET'])
 def twitter_collector_index():
     """
     Twitter collector index page
@@ -142,12 +167,26 @@ def twitter_collector_create():
     return redirect('/twitter')
 
 
+@app.route('/api/v1/twitter/users', methods=['GET'])
+def api_get_users():
+    return TwitterAPI.get_users()
+
+
+@app.route('/api/v1/twitter/tweets/<user>')
+def api_get_tweets(user):
+    return TwitterAPI.get_tweets(user)
+
+
+@app.route('/api/v1/twitter/tweets/<user>/<page>')
+def api_get_tweets_paginated(user, page):
+    return TwitterAPI.get_tweets(user, page)
+
 ##################################################################################
 #                        Follower Collector Area                                 #
 ##################################################################################
 
 
-@app.route('/twitter/follower', methods=['GET'])
+@app.route('/twitter/follower/', methods=['GET'])
 def twitter_follower_index():
     """
     Twitter collector index page
@@ -176,12 +215,22 @@ def twitter_follower_create():
     flash('Process Started!', category='success')
     return redirect('/twitter')
 
+
+@app.route('/api/v1/twitter/followers/<user>')
+def api_get_followers(user):
+    return TwitterAPI.get_followers(user)
+
+
+@app.route('/api/v1/twitter/followers/<user>/<page>')
+def api_get_followers_paginated(user, page):
+    return TwitterAPI.get_followers(user, page)
+
 ##################################################################################
 #                        Friends Collector Area                                  #
 ##################################################################################
 
 
-@app.route('/twitter/friends', methods=['GET'])
+@app.route('/twitter/friends/', methods=['GET'])
 def twitter_friends_index():
     """
     Twitter collector index page
@@ -209,6 +258,16 @@ def twitter_friends_create():
 
     flash('Process Started!', category='success')
     return redirect('/twitter')
+
+
+@app.route('/api/v1/twitter/friends/<user>')
+def api_get_friends(user):
+    return TwitterAPI.get_friends(user)
+
+
+@app.route('/api/v1/twitter/friends/<user>/<page>')
+def api_get_friends_paginated(user, page):
+    return TwitterAPI.get_friends(user, page)
 
 
 if __name__ == '__main__':
