@@ -46,7 +46,7 @@ class TwitterAPI(object):
                 },
                 {
                     "name": "Follower Discover",
-                    "url": "/api/v1/twitter/follower/{USER-TO-DISCOVER}",
+                    "url": "/api/v1/twitter/followers/{USER-TO-DISCOVER}",
                     "util": "/api/v1/twitter/users"
                 }
             ]
@@ -71,6 +71,7 @@ class TwitterAPI(object):
         """
         page = int(page) if int(page) > 0 else 1
         n_result = 10
+        total_result = Connection.Instance().db.twitter.find({"keywords": keyword, "source": "listener"}).count()
         result = list(Connection.Instance().db.twitter.find(
             {
                 "keywords": keyword,
@@ -86,6 +87,7 @@ class TwitterAPI(object):
         page_size = len(result)
         
         return jsonify(
+            total_result=total_result,
             status=200,
             page_size=page_size,
             page=page,
@@ -111,6 +113,7 @@ class TwitterAPI(object):
         :param page: Page Number
         :return:
         """
+        total_result = Connection.Instance().db.twitter.find({"user": user, "source": "collector"}).count()
         page = int(page) if int(page) > 0 else 1
         n_result = 10
         result = list(Connection.Instance().db.twitter.find(
@@ -123,10 +126,71 @@ class TwitterAPI(object):
         page_size = len(result)
 
         return jsonify(
+            total_result=total_result,
             status=200,
             page_size=page_size,
             page=page,
             result=[data['data'] for data in result],
             next="/api/v1/twitter/tweets/%s/%s" % (user, str(page + 1)) if page_size == n_result else None,
             before="/api/v1/twitter/tweets/%s/%s" % (user, str(page - 1)) if page > 1 else None
+        ), 200
+
+    @staticmethod
+    def get_followers(user, page=1):
+        """
+        Return List of followers of a specific user
+        :param user: User Screen Name
+        :param page: Page Number
+        :return:
+        """
+        total_result = Connection.Instance().db.twitter.find({"user": user, "source": "follower"}).count()
+        page = int(page) if int(page) > 0 else 1
+        n_result = 10
+        result = list(Connection.Instance().db.twitter.find(
+            {
+                "source": "follower",
+                "user": user
+            }
+        ).skip((page - 1) * n_result).limit(n_result))
+
+        page_size = len(result)
+
+        return jsonify(
+            total_result=total_result,
+            status=200,
+            page_size=page_size,
+            page=page,
+            result=[data['data'] for data in result],
+            next="/api/v1/twitter/followers/%s/%s" % (user, str(page + 1)) if page_size == n_result else None,
+            before="/api/v1/twitter/followers/%s/%s" % (user, str(page - 1)) if page > 1 else None
+        ), 200
+
+    @staticmethod
+    def get_friends(user, page=1):
+        """
+        Return List of friends of a specific user
+        :param user: User Screen Name
+        :param page: Page Number
+        :return:
+        """
+        total_result = Connection.Instance().db.twitter.find({"user": user, "source": "friends"}).count()
+        page = int(page) if int(page) > 0 else 1
+        n_result = 10
+        result = list(Connection.Instance().db.twitter.find(
+            {
+                "source": "friends",
+                "user": user
+            }
+        ).skip((page - 1) * n_result).limit(n_result))
+    
+        page_size = len(result)
+    
+        return jsonify(
+            total_result=total_result,
+            status=200,
+            page_size=page_size,
+            page=page,
+            result=[data['data'] for data in result],
+            next="/api/v1/twitter/friends/%s/%s" % (user, str(page + 1)) if page_size == n_result else None,
+            before="/api/v1/twitter/friends/%s/%s" % (user, str(page - 1)) if page > 1 else None
         ), 200

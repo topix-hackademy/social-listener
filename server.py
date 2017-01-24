@@ -215,6 +215,16 @@ def twitter_follower_create():
     flash('Process Started!', category='success')
     return redirect('/twitter')
 
+
+@app.route('/api/v1/twitter/followers/<user>')
+def api_get_followers(user):
+    return TwitterAPI.get_followers(user)
+
+
+@app.route('/api/v1/twitter/followers/<user>/<page>')
+def api_get_followers_paginated(user, page):
+    return TwitterAPI.get_followers(user, page)
+
 ##################################################################################
 #                        Friends Collector Area                                  #
 ##################################################################################
@@ -248,6 +258,16 @@ def twitter_friends_create():
 
     flash('Process Started!', category='success')
     return redirect('/twitter')
+
+
+@app.route('/api/v1/twitter/friends/<user>')
+def api_get_friends(user):
+    return TwitterAPI.get_friends(user)
+
+
+@app.route('/api/v1/twitter/friends/<user>/<page>')
+def api_get_friends_paginated(user, page):
+    return TwitterAPI.get_friends(user, page)
 
 
 if __name__ == '__main__':
