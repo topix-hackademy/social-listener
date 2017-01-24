@@ -1,4 +1,4 @@
-# social-listener
+# Social Listener
 
 Python project used to collect tweets and social-network data from Social's API
 
@@ -32,8 +32,6 @@ Remember to edit the file with your settings.
 
 In Development Mode:
 
-    export FLASK_DEBUG=1
-    export FLASK=server.py
     npm start (compile and run python server)
      
 and in a second terminal window 
@@ -51,3 +49,7 @@ We support API! Go to:
 For now, we only support Twitter APIs:
 
     /api/v1/twitter
+    
+## Credits
+
+Developed with <3 from TOP-IX Hackademy
