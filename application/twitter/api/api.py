@@ -69,8 +69,8 @@ class TwitterAPI(object):
         :param page: Page Number
         :return:
         """
+        page = int(page) if int(page) > 0 else 1
         n_result = 10
-        page = int(page)
         result = list(Connection.Instance().db.twitter.find(
             {
                 "keywords": keyword,
@@ -102,3 +102,31 @@ class TwitterAPI(object):
         """
         return jsonify(status=200,
                        users=Connection.Instance().db.twitter.find({"user": {"$ne": None}}).distinct("user")), 200
+
+    @staticmethod
+    def get_tweets(user, page=1):
+        """
+        Return List of tweets from a specific user
+        :param user: User Screen Name
+        :param page: Page Number
+        :return:
+        """
+        page = int(page) if int(page) > 0 else 1
+        n_result = 10
+        result = list(Connection.Instance().db.twitter.find(
+            {
+                "source": "collector",
+                "user": user
+            }
+        ).skip((page-1)*n_result).limit(n_result))
+        
+        page_size = len(result)
+
+        return jsonify(
+            status=200,
+            page_size=page_size,
+            page=page,
+            result=[data['data'] for data in result],
+            next="/api/v1/twitter/tweets/%s/%s" % (user, str(page + 1)) if page_size == n_result else None,
+            before="/api/v1/twitter/tweets/%s/%s" % (user, str(page - 1)) if page > 1 else None
+        ), 200

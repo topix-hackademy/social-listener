@@ -171,6 +171,16 @@ def twitter_collector_create():
 def api_get_users():
     return TwitterAPI.get_users()
 
+
+@app.route('/api/v1/twitter/tweets/<user>')
+def api_get_tweets(user):
+    return TwitterAPI.get_tweets(user)
+
+
+@app.route('/api/v1/twitter/tweets/<user>/<page>')
+def api_get_tweets_paginated(user, page):
+    return TwitterAPI.get_tweets(user, page)
+
 ##################################################################################
 #                        Follower Collector Area                                 #
 ##################################################################################
