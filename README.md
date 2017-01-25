@@ -40,7 +40,7 @@ and in a second terminal window
     
 In Production Mode use WSGI with Apache/NGINX (documentation will be provided soon..).
 
-## API (Working on..)
+## API 
 
 We support API! Go to:
 
