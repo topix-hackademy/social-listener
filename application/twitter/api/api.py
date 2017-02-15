@@ -36,7 +36,7 @@ class TwitterAPI(object):
                 },
                 {
                     "name": "Tweet Discover",
-                    "url": "/api/v1/twitter/tweet/{USER-TO-DISCOVER}",
+                    "url": "/api/v1/twitter/tweets/{USER-TO-DISCOVER}",
                     "util": "/api/v1/twitter/users"
                 },
                 {
